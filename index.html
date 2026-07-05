@@ -282,21 +282,39 @@
                 btnSes.innerHTML = "🔇 Oyunu Sessizde Oynuyorsun (Sesi Aç)";
                 btnSes.classList.remove("ses-buton-aktif");
             } else {
-                // HATA YAKALAMA: Tarayıcıların otomatik ses oynatma politikaları nedeniyle hata vermesini önler.
-                bgMuzik.play().catch(e => console.log("Ses oynatma engellendi, önce ekrana tıklamanız gerekebilir:", e));
-                sesAcik = true;
-                btnSes.innerHTML = "🔊 Oyunun Sesi Açık (Kapatmak için tıkla)";
-                btnSes.classList.add("ses-buton-aktif");
+                // Tarayıcı kilidini aşmak için yükleme (load) komutu eklendi.
+                bgMuzik.load(); 
+                let playPromise = bgMuzik.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.then(_ => {
+                        sesAcik = true;
+                        btnSes.innerHTML = "🔊 Oyunun Sesi Açık (Kapatmak için tıkla)";
+                        btnSes.classList.add("ses-buton-aktif");
+                    }).catch(error => {
+                        console.log("Tarayıcı engelledi, lütfen önce ekranda herhangi bir yere tıklayın:", error);
+                        alert("Tarayıcınızın ses kilidini açmak için lütfen önce oyuna bir kez tıklayın, ardından Sesi Aç butonuna basın!");
+                    });
+                }
             }
         }
 
         function anlikSesOynat(sesId) {
             if (sesAcik) {
                 let sesDosyasi = document.getElementById(sesId);
+                // Sesin her seferinde baştan temiz çalması için eklendi.
+                sesDosyasi.pause(); 
                 sesDosyasi.currentTime = 0;
-                sesDosyasi.play().catch(e => {}); 
+                sesDosyasi.play().catch(e => {console.log("Ses efekti engellendi", e)}); 
             }
         }
+
+        // --- GİZLİ KİLİT AÇICI: Kullanıcı ekrana tıkladığında ses motorlarını serbest bırakır ---
+        document.body.addEventListener('click', function() {
+            // Sadece bir kere çalışması yeterlidir, bu tarayıcıya "kullanıcı burada" der.
+            // Bu kodun içini boş bırakmak bile tıklamayı algılatır.
+        }, { once: true });
+
 
         // --- VERİTABANI (AŞAMALAR VE GEZEGENLER) ---
         const asamalar = [
@@ -736,4 +754,3 @@
     </script>
 </body>
 </html>
-
