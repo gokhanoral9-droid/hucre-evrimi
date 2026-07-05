@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hücre Evrimi Tycoon - Kusursuz Sürüm</title>
     
-    <!-- 1. ADIM DOKÜMANTASYONU: AdSense Kütüphanesi -->
-    <!-- Bu script, Google sunucularından reklam verilerini senin hesabına (client) bağlar -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8821638803642284" crossorigin="anonymous"></script>
     
     <style>
@@ -114,8 +112,6 @@
         .ses-buton-aktif { background-color: #8957e5; border: 1px solid #a371f7; }
         .ses-buton-aktif:hover { background-color: #a371f7; }
     </style>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8821638803642284"
-     crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -197,8 +193,6 @@
             <button class="alt-btn" style="color:#ff7b72; font-weight:bold; border-color:#e63946;" onclick="oyunuSifirla()">🔄 En Baştan Başla</button>
         </div>
         
-        <!-- 2. ADIM DOKÜMANTASYONU: Reklam Afişi Alanı -->
-        <!-- Bu bölüm ekranda reklamın nerede ve ne boyutta gösterileceğini ayarlar -->
         <div style="margin-top: 20px; text-align: center; border: 1px dashed #30363d; padding: 10px; border-radius: 8px;">
             <p style="color:#8b949e; font-size:12px; margin-bottom:5px;">Reklam Alanı</p>
             <ins class="adsbygoogle"
@@ -477,7 +471,7 @@
                 let veriler = JSON.parse(kayit); hucre = veriler.hucre || 0; seviye = veriler.seviye || 1; sonrakiSeviyeMaliyeti = veriler.sonrakiSeviyeMaliyeti || 10; otomatikUretimMiktari = veriler.otomatikUretimMiktari || 0; tiklamaGucu = veriler.tiklamaGucu || 1; tiklamaGucuMaliyeti = veriler.tiklamaGucuMaliyeti || 50; uretimCarpani = veriler.uretimCarpani || 1.0; mutasyonMaliyeti = veriler.mutasyonMaliyeti || 200; entropiSeviyesi = veriler.entropiSeviyesi || 0; prestijCarpani = veriler.prestijCarpani || 1; kutleCekimAgiAktif = veriler.kutleCekimAgiAktif || false;
                 if(veriler.kaydedilenGezegenler) { veriler.kaydedilenGezegenler.forEach((durum, index) => { if(gezegenler[index]) gezegenler[index].satinAlindi = durum; }); }
                 document.getElementById("asamalar-alani").innerHTML = ""; 
-                asamalar.forEach(a => { if (seviye >= a.kilitSeviyesi) { a.acildimi = true; let asamaHtml = `<div class="asama-kutusu" style="display:block;"><strong>${a.isim}</strong><br><small>Temel Güç: +${a.saniyelikKarti}</small></div>`; document.getElementById("asamalar-alani").innerHTML = asamaHtml + document.getElementById("asamalar-alani").innerHTML; } });
+                asamalar.forEach(a => { if (seviye >= a.kilitSeviyesi) { a.acildimi = true; let asamaHtml = `<div class="asama-kutusu" style="display:block;"><strong>${a.isim}</strong><br><small>Temel Güç: +${asama.saniyelikKarti}</small></div>`; document.getElementById("asamalar-alani").innerHTML = asamaHtml + document.getElementById("asamalar-alani").innerHTML; } });
                 for(let i=0; i<entropiSeviyesi; i++) { canliSerbestBirak(); }
                 if(veriler.sonGirisZamani && otomatikUretimMiktari > 0) {
                     let gecenSaniye = (Date.now() - veriler.sonGirisZamani) / 1000;
