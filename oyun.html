@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hücre Evrimi Tycoon - Kusursuz Sürüm</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-SENIN_ID_NUMARAN" crossorigin="anonymous"></script>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #0d1117; color: #c9d1d9; margin: 0; display: flex; height: 100vh; overflow: hidden; }
+        
+        #sol-panel { 
+            flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; 
+            background-color: #0d1117;
+            background-image: url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=2048&auto=format&fit=crop');
+            background-size: cover; background-position: center;
+            animation: galaksiKayma 120s linear infinite alternate; 
+        }
+        @keyframes galaksiKayma { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
+
+        #kozmik-ag {
+            position: absolute; top: 50%; left: 50%; width: 200vw; height: 200vh;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle, rgba(138,43,226,0.2) 0%, transparent 40%),
+                        repeating-radial-gradient(circle, rgba(138,43,226,0.05) 0, transparent 40px);
+            z-index: 2; display: none; pointer-events: none;
+            animation: karanlikMaddeNabzi 4s infinite alternate;
+        }
+        @keyframes karanlikMaddeNabzi { from { transform: translate(-50%, -50%) scale(1); opacity: 0.5; } to { transform: translate(-50%, -50%) scale(1.1); opacity: 1; } }
+
+        #sag-panel { width: 400px; background-color: #161b22; padding: 20px; border-left: 1px solid #30363d; box-shadow: -10px 0 30px rgba(0,0,0,0.9); overflow-y: auto; display: flex; flex-direction: column; z-index: 100;}
+        
+        .skor-kutusu { text-align: center; margin-bottom: 20px; z-index: 50; background: rgba(13, 17, 23, 0.7); padding: 15px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.5);}
+        .skor-kutusu h1 { margin: 0; color: #58a6ff; font-size: 50px; text-shadow: 0 0 20px rgba(88, 166, 255, 0.5);}
+        .skor-kutusu p { margin: 5px 0; color: #e1e4e8; }
+        
+        .sahne { width: 150px; height: 150px; perspective: 1000px; margin: 50px auto; z-index: 30; position: relative; }
+        .tiklama-kapsayici { width: 100%; height: 100%; transition: transform 0.1s; cursor: pointer; user-select: none; }
+        .tiklama-kapsayici:active { transform: scale(0.85); }
+        .kup { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; animation: donme 10s infinite linear; }
+        .yuzey { position: absolute; width: 150px; height: 150px; background: rgba(15, 185, 177, 0.15); border: 2px solid rgba(15, 185, 177, 0.9); box-shadow: 0 0 40px rgba(15, 185, 177, 0.5) inset; display: flex; align-items: center; justify-content: center; font-size: 50px; backdrop-filter: blur(2px);}
+        .on { transform: translateZ(75px); } .arka { transform: rotateY(180deg) translateZ(75px); } .sag { transform: rotateY(90deg) translateZ(75px); } .sol { transform: rotateY(-90deg) translateZ(75px); } .ust { transform: rotateX(90deg) translateZ(75px); } .alt { transform: rotateX(-90deg) translateZ(75px); }
+        @keyframes donme { 0% { transform: rotateX(0deg) rotateY(0deg); } 100% { transform: rotateX(360deg) rotateY(360deg); } }
+
+        #yorungeler-merkezi { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotateX(70deg); transform-style: preserve-3d; width: 0; height: 0; z-index: 10; pointer-events: none; }
+        .yorunge { position: absolute; top: 50%; left: 50%; border: 2px solid rgba(255, 255, 255, 0.1); border-radius: 50%; display: none; transform-style: preserve-3d; box-shadow: 0 0 15px rgba(255,255,255,0.05); }
+        .gezegen-obje { position: absolute; top: 0; left: 50%; margin-left: -22px; margin-top: -22px; transform-style: preserve-3d; }
+        .gezegen-kure { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; box-shadow: inset -10px -10px 20px rgba(0,0,0,0.8), 0 0 15px rgba(255,255,255,0.3); border: 1px solid rgba(255,255,255,0.2); }
+
+        .marduk-renk { background: radial-gradient(circle at 30% 30%, #ffb703, #b85d00); }
+        .ay-renk { background: radial-gradient(circle at 30% 30%, #f8fafc, #475569); }
+        .mars-renk { background: radial-gradient(circle at 30% 30%, #f87171, #7f1d1d); }
+        .jupiter-renk { background: radial-gradient(circle at 30% 30%, #fbbf24, #78350f); width: 60px; height: 60px; margin-left: -8px; margin-top: -8px; font-size: 30px;}
+        .saturn-renk { background: radial-gradient(circle at 30% 30%, #fde047, #422006); width: 80px; height: 80px; margin-left: -18px; margin-top: -18px; font-size: 45px;}
+
+        #yorunge-0 { width: 300px; height: 300px; margin: -150px 0 0 -150px; animation: donDuz 6s linear infinite; } #yorunge-0 .gezegen-obje { animation: donTers 6s linear infinite; }
+        #yorunge-1 { width: 420px; height: 420px; margin: -210px 0 0 -210px; animation: donTersYorunge 12s linear infinite; } #yorunge-1 .gezegen-obje { animation: donDuzObje 12s linear infinite; }
+        #yorunge-2 { width: 550px; height: 550px; margin: -275px 0 0 -275px; animation: donDuz 20s linear infinite; } #yorunge-2 .gezegen-obje { animation: donTers 20s linear infinite; }
+        #yorunge-3 { width: 700px; height: 700px; margin: -350px 0 0 -350px; animation: donDuz 35s linear infinite; } #yorunge-3 .gezegen-obje { animation: donTers 35s linear infinite; }
+        #yorunge-4 { width: 900px; height: 900px; margin: -450px 0 0 -450px; animation: donDuz 50s linear infinite; } #yorunge-4 .gezegen-obje { animation: donTers 50s linear infinite; }
+
+        @keyframes donDuz { from { transform: rotateZ(0deg); } to { transform: rotateZ(360deg); } }
+        @keyframes donTersYorunge { from { transform: rotateZ(360deg); } to { transform: rotateZ(0deg); } }
+        @keyframes donTers { from { transform: rotateZ(0deg) rotateX(-70deg); } to { transform: rotateZ(-360deg) rotateX(-70deg); } }
+        @keyframes donDuzObje { from { transform: rotateZ(-360deg) rotateX(-70deg); } to { transform: rotateZ(0deg) rotateX(-70deg); } }
+
+        .yuzen-yazi { position: absolute; font-size: 32px; font-weight: bold; pointer-events: none; animation: ucus 1s ease-out forwards; z-index: 60;}
+        @keyframes ucus { 0% { opacity: 1; transform: translateY(0) scale(1); } 100% { opacity: 0; transform: translateY(-120px) scale(1.5); } }
+        
+        .bar-arkaplan { width: 100%; height: 20px; background-color: #0d1117; border-radius: 10px; margin-top: 10px; overflow: hidden; border: 1px solid #1e293b; }
+        .bar-dolum { height: 100%; background: linear-gradient(90deg, #0284c7, #38bdf8); box-shadow: 0 0 15px rgba(56, 189, 248, 0.6); width: 0%; transition: width 0.2s ease-out; }
+        
+        .avantaj-btn { background-color: #1f6feb; color: white; border: none; padding: 12px; font-size: 14px; border-radius: 8px; cursor: pointer; width: 100%; font-weight: bold; transition: background 0.2s; margin-top: 10px; text-align: left; display: flex; justify-content: space-between; align-items: center;}
+        .avantaj-btn:hover { background-color: #388bfd; }
+        .avantaj-btn:disabled { background-color: #21262d; color: #8b949e; cursor: not-allowed; border: 1px solid #30363d; }
+
+        #btn-kutlecekim { background: linear-gradient(90deg, #4c1d95, #7c3aed); border: 2px solid #a78bfa; margin-top: 20px; box-shadow: 0 0 20px rgba(124, 58, 237, 0.5);}
+        #btn-kutlecekim:hover:not(:disabled) { background: linear-gradient(90deg, #5b21b6, #8b5cf6); }
+        #btn-kutlecekim:disabled { background: #21262d; border-color: #30363d; box-shadow: none;}
+        
+        .asama-kutusu { background-color: #238636; padding: 10px; margin-top: 8px; border-radius: 8px; color: white; display: none; animation: belirme 0.5s; border: 1px solid #2ea043; font-size: 14px;}
+        @keyframes belirme { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .serbest-canli { position: absolute; font-size: 35px; pointer-events: none; z-index: 25; opacity: 0.8; filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.4)); }
+
+        .altin-hucre { position: absolute; font-size: 60px; cursor: pointer; z-index: 100; animation: altinParlama 1s infinite alternate, ucusVeDonme 4s linear forwards; filter: drop-shadow(0 0 30px gold); }
+        @keyframes altinParlama { from { filter: drop-shadow(0 0 15px gold); transform: scale(1); } to { filter: drop-shadow(0 0 40px gold); transform: scale(1.2); } }
+        @keyframes ucusVeDonme { 0% { opacity: 0; transform: translateY(100px) rotate(0deg); } 20% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; transform: translateY(-400px) rotate(360deg); } }
+
+        #btn-prestij { display: none; background-color: #e63946; border: 2px solid #ffb703; animation: altinParlama 1.5s infinite alternate; text-align: center; justify-content: center; margin-top:20px; font-size: 16px; padding: 15px;}
+        #btn-prestij:hover { background-color: #d62828; }
+        
+        .alt-menu { margin-top: 20px; border-top: 1px solid #30363d; padding-top: 15px; display: flex; gap: 10px; }
+        .alt-btn { flex: 1; padding: 10px; background: #21262d; color: #c9d1d9; border: 1px solid #30363d; border-radius: 5px; cursor: pointer; font-size: 12px; transition: 0.2s;}
+        .alt-btn:hover { background: #30363d; }
+
+        .gezegen-btn { background: linear-gradient(135deg, #1e293b, #0f172a); color: #fff; border: 1px solid #3b82f6; padding: 12px; border-radius: 8px; cursor: pointer; text-align: left; margin-top: 10px; width: 100%; transition: 0.3s; position: relative; overflow: hidden;}
+        .gezegen-btn:hover:not(:disabled) { box-shadow: 0 0 15px rgba(59, 130, 246, 0.5); transform: translateY(-2px); }
+        .gezegen-btn:disabled { background: #161b22; color: #6e7681; border-color: #30363d; cursor: not-allowed; box-shadow: none; }
+        .gezegen-satin-alindi { background: linear-gradient(135deg, #166534, #14532d) !important; border-color: #22c55e !important; color: white !important; cursor: default !important; transform: none !important;}
+        .gezegen-etiket { display:inline-block; margin-top:8px; padding:4px 8px; background:rgba(0,0,0,0.6); border-radius:5px; font-size:12px; font-weight:bold;}
+        
+        /* --- REKLAM VE BANNER STİLLERİ --- */
+        .reklam-banner {
+            margin-top: 20px;
+            width: 100%;
+            height: 90px;
+            background: repeating-linear-gradient( 45deg, #21262d, #21262d 10px, #161b22 10px, #161b22 20px );
+            border: 1px dashed #58a6ff;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8b949e;
+            font-size: 12px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        #btn-odullu-reklam {
+            background: linear-gradient(90deg, #166534, #15803d);
+            border: 2px solid #4ade80;
+            margin-top: 20px;
+        }
+        #btn-odullu-reklam:hover:not(:disabled) {
+            background: linear-gradient(90deg, #15803d, #16a34a);
+        }
+        #btn-odullu-reklam:disabled {
+            background: #21262d;
+            border-color: #30363d;
+            color: #8b949e;
+        }
+
+        /* --- ÖĞRETİCİ MODAL CSS --- */
+        .modal-arkaplan { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); backdrop-filter: blur(5px); justify-content: center; align-items: center; }
+        .modal-icerik { background-color: #161b22; padding: 30px; border: 1px solid #30363d; border-radius: 15px; width: 80%; max-width: 600px; color: #c9d1d9; box-shadow: 0 0 50px rgba(88, 166, 255, 0.3); }
+        .modal-baslik { color: #58a6ff; margin-top: 0; border-bottom: 1px solid #30363d; padding-bottom: 10px; font-size: 24px; }
+        .modal-kapat { color: #8b949e; float: right; font-size: 28px; font-weight: bold; cursor: pointer; transition: color 0.3s; }
+        .modal-kapat:hover { color: #ff7b72; }
+        .ogretici-liste { font-size: 15px; line-height: 1.8; }
+        .bilgi-buton { background-color: #2ea043; color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; margin-bottom: 10px; width: 100%; font-size: 14px; transition: background 0.3s; }
+        .bilgi-buton:hover { background-color: #3fb950; }
+        
+        /* --- SES BUTONU ÖZEL STİL --- */
+        .ses-buton { background-color: #e34c26; border: 1px solid #ff7b72; }
+        .ses-buton:hover { background-color: #f56565; }
+        .ses-buton-aktif { background-color: #8957e5; border: 1px solid #a371f7; }
+        .ses-buton-aktif:hover { background-color: #a371f7; }
+    </style>
+</head>
+<body>
+
+    <audio id="ses-arkaplan" loop>
+        <source src="https://actions.google.com/sounds/v1/ambiences/space_ambience.ogg" type="audio/ogg">
+    </audio>
+    <audio id="ses-tiklama">
+        <source src="https://actions.google.com/sounds/v1/ui/pop_up_01.ogg" type="audio/ogg">
+    </audio>
+    <audio id="ses-avantaj">
+        <source src="https://actions.google.com/sounds/v1/arcade/coin_chime.ogg" type="audio/ogg">
+    </audio>
+
+    <div id="sol-panel">
+        <div id="kozmik-ag"></div>
+        <div class="skor-kutusu">
+            <h1 id="hucre-sayisi">0</h1>
+            <p>Saniyelik Üretim: <span id="saniyelik-uretim" style="color:#2ea043; font-weight:bold;">0</span></p>
+            <p>Gerçek Tıklama Gücü: <span id="guncel-tiklama">1</span></p>
+            <p style="color:#d2a8ff; font-weight:bold; margin-top:10px;">Entropi Seviyesi: <span id="guncel-entropi">0</span></p>
+            <p id="sinerji-metni" style="color:#a855f7; font-weight:bold; display:none;">🌌 Ağ Sinerjisi: x<span id="guncel-sinerji">1</span></p>
+            <p id="prestij-metni" style="color:#ffb703; font-weight:bold; display:none;">✨ Prestij Çarpanı: x<span id="guncel-prestij">1</span></p>
+        </div>
+        
+        <div id="yorungeler-merkezi">
+            <div id="yorunge-0" class="yorunge"><div class="gezegen-obje"><div class="gezegen-kure marduk-renk">☄️</div></div></div>
+            <div id="yorunge-1" class="yorunge"><div class="gezegen-obje"><div class="gezegen-kure ay-renk">🌑</div></div></div>
+            <div id="yorunge-2" class="yorunge"><div class="gezegen-obje"><div class="gezegen-kure mars-renk">🔴</div></div></div>
+            <div id="yorunge-3" class="yorunge"><div class="gezegen-obje"><div class="gezegen-kure jupiter-renk">🟤</div></div></div>
+            <div id="yorunge-4" class="yorunge"><div class="gezegen-obje"><div class="gezegen-kure saturn-renk">🪐</div></div></div>
+        </div>
+
+        <div class="sahne" id="tiklama-alani">
+            <div class="tiklama-kapsayici">
+                <div class="kup">
+                    <div class="yuzey on">🦠</div><div class="yuzey arka">🧬</div>
+                    <div class="yuzey sag">⚡</div><div class="yuzey sol">💧</div>
+                    <div class="yuzey ust">🐟</div><div class="yuzey alt">🦎</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="sag-panel">
+        <button id="btn-ses-kontrol" class="bilgi-buton ses-buton" onclick="sesiAcKapat()">🔇 Oyunu Sessizde Oynuyorsun (Sesi Aç)</button>
+        <button class="bilgi-buton" onclick="ogreticiyiAc()">📖 Oyunu Nasıl Oynarım?</button>
+        
+        <h2 style="margin-top:0; color:#58a6ff;">Evrim Paneli</h2>
+        <p>Mevcut Seviye: <strong id="seviye-sayisi" style="font-size: 20px; color:#38bdf8;">1</strong> / 100</p>
+        <div class="bar-arkaplan"><div class="bar-dolum" id="ilerleme-bari"></div></div>
+        <p style="font-size: 12px; text-align: center; color:#8b949e;">Hedef: <span id="seviye-maliyeti">10</span> Hücre</p>
+
+        <button id="btn-kutlecekim" class="avantaj-btn" onclick="kutleCekimAgiKur()">
+            <span>🌌 Kütle Çekim Ağını Kur</span>
+            <span id="maliyet-kutlecekim" style="background:rgba(0,0,0,0.5); padding:4px 8px; border-radius:5px;">1 Milyar Hücre</span>
+        </button>
+        <button id="btn-odullu-reklam" class="avantaj-btn" onclick="odulluReklamIzle()">
+            <span>📺 Reklam İzle (Anında Büyük Ödül)</span>
+            <span style="background:rgba(0,0,0,0.5); padding:4px 8px; border-radius:5px;">Ücretsiz</span>
+        </button>
+        <h3 style="margin-top:20px; border-bottom: 1px solid #30363d; padding-bottom:10px; color:#ff7b72;">🔥 Özel Avantajlar</h3>
+        <button id="btn-tiklama" class="avantaj-btn" onclick="tiklamaGucunuArtir()">
+            <span>👆 Güçlü Tıklama (+1 Güç)</span>
+            <span id="maliyet-tiklama" style="background:#0d1117; padding:4px 8px; border-radius:5px;">50 Hücre</span>
+        </button>
+        <button id="btn-mutasyon" class="avantaj-btn" onclick="mutasyonGelistir()" style="background-color: #8957e5;">
+            <span>🧬 Mutasyon (Üretim x1.2)</span>
+            <span id="maliyet-mutasyon" style="background:#0d1117; padding:4px 8px; border-radius:5px;">200 Hücre</span>
+        </button>
+
+        <h3 style="margin-top:20px; border-bottom: 1px solid #30363d; padding-bottom:10px; color:#3b82f6;">🌌 Gezegen Keşifleri</h3>
+        <div id="gezegenler-alani"></div>
+
+        <button id="btn-prestij" class="avantaj-btn" onclick="buyukPatlamaYap()">
+            💥 BÜYÜK PATLAMA YAP (Sıfırla ve x5 Kalıcı Üretim Kazan)
+        </button>
+
+        <h3 style="margin-top:20px; border-bottom: 1px solid #30363d; padding-bottom:10px;">Açılan Aşamalar</h3>
+        <div id="asamalar-alani"></div>
+
+        <div class="alt-menu">
+            <button class="alt-btn" onclick="kaydetVeBilgiVer()">💾 Oyunu Kaydet</button>
+            <button class="alt-btn" style="color:#ff7b72; font-weight:bold; border-color:#e63946;" onclick="oyunuSifirla()">🔄 En Baştan Başla</button>
+        </div>
+        
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:320px;height:90px"
+             data-ad-client="ca-pub-SENIN_ID_NUMARAN"
+             data-ad-slot="SENIN_REKLAM_SLOT_NUMARAN"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <div id="ogretici-modal" class="modal-arkaplan">
+        <div class="modal-icerik">
+            <span class="modal-kapat" onclick="ogreticiyiKapat()">&times;</span>
+            <h2 class="modal-baslik">🌌 Hücre Evrimi'ne Hoş Geldin!</h2>
+            <div class="ogretici-liste">
+                <strong>👆 1. Tıklama ve Üretim:</strong> Ekrandaki dönen küpe tıklayarak hücre üretmeye başla. Hücreler senin temel para birimindir.<br><br>
+                <strong>📈 2. Seviye Atlama:</strong> Hücre ürettikçe sağdaki ilerleme barı dolar. Hedefe ulaştığında seviye atlarsın ve belirli seviyelerde otomatik saniyelik üretim kazanırsın.<br><br>
+                <strong>⚡ 3. Geliştirmeler:</strong> Tıklama gücünü ve mutasyon çarpanını satın alarak üretim hızını katlayabilirsin.<br><br>
+                <strong>🪐 4. Gezegenler:</strong> Yeterli hücreye ulaştığında gezegenleri keşfet. Her gezegen sana çok güçlü kalıcı özellikler verir.<br><br>
+                <strong>🌟 5. Altın Hücreler:</strong> Ekranda beliren parlak altın hücreleri yakalayarak anında büyük ödüller kazanabilirsin.<br><br>
+                <strong>💥 6. Büyük Patlama:</strong> Oyunda tıkandığında Büyük Patlama yaparak her şeyi sıfırlayabilir, ancak yeni evrende devasa bir kalıcı "Üretim Çarpanı" elde edebilirsin.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- TEMEL DEĞİŞKENLER ---
+        let hucre = 0; let seviye = 1; let sonrakiSeviyeMaliyeti = 10;
+        let otomatikUretimMiktari = 0; let tiklamaGucu = 1; let tiklamaGucuMaliyeti = 50; 
+        let uretimCarpani = 1.0; let mutasyonMaliyeti = 200;
+        let entropiSeviyesi = 0; let serbestCanlilarListesi = []; 
+        
+        // DÜZELTME: "canliİkonlari" ismindeki Türkçe karakter (İ) kaldırılıp "canliIkonlari" yapıldı.
+        const canliIkonlari = ['🦠', '🧬', '⚡', '💧', '🐟', '🦎']; 
+        
+        let prestijCarpani = 1; let sonGirisZamani = Date.now();
+        let kutleCekimAgiAktif = false;
+        const kutleCekimMaliyeti = 1000000000; 
+
+        // --- SES MOTORU DEĞİŞKENLERİ VE FONKSİYONLARI ---
+        let sesAcik = false; 
+        
+        function sesiAcKapat() {
+            let bgMuzik = document.getElementById("ses-arkaplan");
+            let btnSes = document.getElementById("btn-ses-kontrol");
+            
+            if (sesAcik) {
+                bgMuzik.pause();
+                sesAcik = false;
+                btnSes.innerHTML = "🔇 Oyunu Sessizde Oynuyorsun (Sesi Aç)";
+                btnSes.classList.remove("ses-buton-aktif");
+            } else {
+                // HATA YAKALAMA: Tarayıcıların otomatik ses oynatma politikaları nedeniyle hata vermesini önler.
+                bgMuzik.play().catch(e => console.log("Ses oynatma engellendi, önce ekrana tıklamanız gerekebilir:", e));
+                sesAcik = true;
+                btnSes.innerHTML = "🔊 Oyunun Sesi Açık (Kapatmak için tıkla)";
+                btnSes.classList.add("ses-buton-aktif");
+            }
+        }
+
+        function anlikSesOynat(sesId) {
+            if (sesAcik) {
+                let sesDosyasi = document.getElementById(sesId);
+                sesDosyasi.currentTime = 0;
+                sesDosyasi.play().catch(e => {}); 
+            }
+        }
+
+        // --- VERİTABANI (AŞAMALAR VE GEZEGENLER) ---
+        const asamalar = [
+            { kilitSeviyesi: 5, isim: "💧 Su Damlacığı", saniyelikKarti: 1, acildimi: false },
+            { kilitSeviyesi: 10, isim: "🧬 Protein Sentezi", saniyelikKarti: 3, acildimi: false },
+            { kilitSeviyesi: 15, isim: "🦠 Zar Yapısı", saniyelikKarti: 10, acildimi: false },
+            { kilitSeviyesi: 20, isim: "⚡ Mitokondri", saniyelikKarti: 30, acildimi: false },
+            { kilitSeviyesi: 25, isim: "🧬 DNA Kopyalanması", saniyelikKarti: 80, acildimi: false },
+            { kilitSeviyesi: 30, isim: "🐟 Çok Hücreli Yaşam", saniyelikKarti: 250, acildimi: false },
+            { kilitSeviyesi: 35, isim: "🌿 Fotosentez", saniyelikKarti: 750, acildimi: false },
+            { kilitSeviyesi: 40, isim: "🦎 Sudan Çıkış", saniyelikKarti: 2000, acildimi: false },
+            { kilitSeviyesi: 45, isim: "🥚 Yumurta Evresi", saniyelikKarti: 6000, acildimi: false },
+            { kilitSeviyesi: 50, isim: "🦖 Dinozor Çağı", saniyelikKarti: 15000, acildimi: false }
+        ];
+
+        const gezegenler = [
+            { isim: "☄️ Marduk Gezegeni", maliyet: 5000, aciklama: "%10 ihtimalle x10 Kritik Tıklama (Patlama) verir.", satinAlindi: false },
+            { isim: "🌑 Ay Üssü", maliyet: 15000, aciklama: "Tıklama gücünü anında x5'e katlar.", satinAlindi: false },
+            { isim: "🔴 Kızıl Gezegen (Mars)", maliyet: 500000, aciklama: "Altın Hücre çok daha sık ortaya çıkar.", satinAlindi: false },
+            { isim: "🪐 Jüpiter Fırtınası", maliyet: 10000000, aciklama: "Tüm otomatik üretimi kalıcı olarak x3'e katlar.", satinAlindi: false },
+            { isim: "🪐 Satürn Halkaları", maliyet: 250000000, aciklama: "Seviye atlama maliyetlerini ucuzlatır (Oyun hızlanır).", satinAlindi: false }
+        ];
+
+        // --- ARAYÜZ GÜNCELLEME (DOM MANİPÜLASYONU) ---
+        function ekraniGuncelle() {
+            document.getElementById("hucre-sayisi").innerText = Math.floor(hucre);
+            
+            let sinerjiCarpani = 1;
+            if (kutleCekimAgiAktif) {
+                let alinanGezegenSayisi = gezegenler.filter(g => g.satinAlindi).length;
+                if (alinanGezegenSayisi > 0) sinerjiCarpani = Math.pow(2, alinanGezegenSayisi);
+                
+                document.getElementById("sinerji-metni").style.display = "block";
+                document.getElementById("guncel-sinerji").innerText = sinerjiCarpani;
+                document.getElementById("kozmik-ag").style.display = "block";
+                
+                let btnKutle = document.getElementById("btn-kutlecekim");
+                btnKutle.innerHTML = "✨ Kozmik Ağ Aktif ✨";
+                btnKutle.style.background = "#166534";
+                btnKutle.disabled = true;
+            } else {
+                document.getElementById("btn-kutlecekim").disabled = (hucre < kutleCekimMaliyeti);
+            }
+
+            let jupiterCarpani = gezegenler[3].satinAlindi ? 3 : 1;
+            let toplamUretim = otomatikUretimMiktari * uretimCarpani * prestijCarpani * jupiterCarpani * sinerjiCarpani;
+            document.getElementById("saniyelik-uretim").innerText = toplamUretim.toFixed(1); 
+            
+            let ayCarpani = gezegenler[1].satinAlindi ? 5 : 1;
+            let gercekTiklamaGucu = tiklamaGucu * ayCarpani;
+            document.getElementById("guncel-tiklama").innerText = gercekTiklamaGucu;
+
+            document.getElementById("seviye-sayisi").innerText = seviye;
+            document.getElementById("seviye-maliyeti").innerText = sonrakiSeviyeMaliyeti;
+            document.getElementById("maliyet-tiklama").innerText = tiklamaGucuMaliyeti + " Hücre";
+            document.getElementById("maliyet-mutasyon").innerText = mutasyonMaliyeti + " Hücre";
+            document.getElementById("guncel-entropi").innerText = entropiSeviyesi;
+
+            let yuzde = (hucre / sonrakiSeviyeMaliyeti) * 100;
+            if (yuzde > 100) yuzde = 100; 
+            document.getElementById("ilerleme-bari").style.width = yuzde + "%";
+
+            document.getElementById("btn-tiklama").disabled = (hucre < tiklamaGucuMaliyeti);
+            document.getElementById("btn-mutasyon").disabled = (hucre < mutasyonMaliyeti);
+
+            if (seviye >= 50 || prestijCarpani > 1) document.getElementById("btn-prestij").style.display = "flex";
+            else document.getElementById("btn-prestij").style.display = "none";
+            
+            if (prestijCarpani > 1) {
+                document.getElementById("prestij-metni").style.display = "block";
+                document.getElementById("guncel-prestij").innerText = prestijCarpani;
+            }
+
+            gezegenArayuzunuGuncelle(); 
+        }
+
+        // --- OYUN MEKANİKLERİ VE BUTON İŞLEMLERİ ---
+        function kutleCekimAgiKur() {
+            if (hucre >= kutleCekimMaliyeti && !kutleCekimAgiAktif) {
+                hucre -= kutleCekimMaliyeti;
+                kutleCekimAgiAktif = true;
+                anlikSesOynat("ses-avantaj"); 
+                ekraniGuncelle();
+                baslatHareketDongusu(); 
+            }
+        }
+
+        function gezegenArayuzunuGuncelle() {
+            let html = "";
+            gezegenler.forEach((g, index) => {
+                let durumClass = g.satinAlindi ? "gezegen-satin-alindi" : "";
+                let disabled = (hucre < g.maliyet || g.satinAlindi) ? "disabled" : "";
+                let etiketMetni = g.satinAlindi ? "Keşfedildi 🚩" : `${g.maliyet.toLocaleString()} Hücre`;
+                
+                html += `<button class="gezegen-btn ${durumClass}" ${disabled} onclick="gezegenAl(${index})">
+                    <strong style="font-size:15px;">${g.isim}</strong><br><small style="color:#cbd5e1;">${g.aciklama}</small><br><span class="gezegen-etiket">${etiketMetni}</span></button>`;
+                document.getElementById("yorunge-" + index).style.display = g.satinAlindi ? "block" : "none";
+            });
+            document.getElementById("gezegenler-alani").innerHTML = html;
+        }
+
+        function gezegenAl(index) {
+            let secilenGezegen = gezegenler[index];
+            if (hucre >= secilenGezegen.maliyet && !secilenGezegen.satinAlindi) {
+                hucre -= secilenGezegen.maliyet;
+                secilenGezegen.satinAlindi = true;
+                anlikSesOynat("ses-avantaj"); 
+                ekraniGuncelle();
+            }
+        }
+
+        document.getElementById("tiklama-alani").addEventListener("mousedown", function(e) {
+            let ayCarpani = gezegenler[1].satinAlindi ? 5 : 1;
+            let gercekTiklama = tiklamaGucu * ayCarpani;
+            let yaziRengi = "#ff7b72"; let gosterilecekMetin = gercekTiklama;
+
+            if (gezegenler[0].satinAlindi && Math.random() < 0.10) { 
+                gercekTiklama = gercekTiklama * 10; yaziRengi = "#f1c40f"; gosterilecekMetin = gercekTiklama + " (KRİTİK!)";
+            }
+            hucre += gercekTiklama; 
+            
+            anlikSesOynat("ses-tiklama"); 
+            
+            ekraniGuncelle(); 
+            yuzenYaziOlustur(e.clientX, e.clientY, gosterilecekMetin, yaziRengi);
+        });
+
+        function tiklamaGucunuArtir() { 
+            if (hucre >= tiklamaGucuMaliyeti) { 
+                hucre -= tiklamaGucuMaliyeti; 
+                tiklamaGucu += 1; 
+                tiklamaGucuMaliyeti = Math.floor(tiklamaGucuMaliyeti * 2.5); 
+                anlikSesOynat("ses-avantaj"); 
+                ekraniGuncelle(); 
+            } 
+        }
+        
+        function mutasyonGelistir() { 
+            if (hucre >= mutasyonMaliyeti) { 
+                hucre -= mutasyonMaliyeti; 
+                uretimCarpani *= 1.2; 
+                mutasyonMaliyeti = Math.floor(mutasyonMaliyeti * 3); 
+                anlikSesOynat("ses-avantaj"); 
+                ekraniGuncelle(); 
+            } 
+        }
+        
+        function yuzenYaziOlustur(x, y, metin, renk) {
+            const yazi = document.createElement("div"); yazi.classList.add("yuzen-yazi");
+            yazi.innerText = "+" + metin; yazi.style.color = renk; yazi.style.textShadow = `0 0 10px ${renk}`;
+            yazi.style.left = (x - 20 + Math.random() * 40) + "px"; yazi.style.top = (y - 30) + "px";
+            document.getElementById("sol-panel").appendChild(yazi);
+            setTimeout(() => { yazi.remove(); }, 1000);
+        }
+
+        function asamaKontrolEt() {
+            for (let i = 0; i < asamalar.length; i++) {
+                let asama = asamalar[i];
+                if (seviye >= asama.kilitSeviyesi && asama.acildimi === false) {
+                    asama.acildimi = true; otomatikUretimMiktari += asama.saniyelikKarti; 
+                    let asamaHtml = `<div class="asama-kutusu" style="display:block;"><strong>${asama.isim}</strong><br><small>Temel Güç: +${asama.saniyelikKarti}</small></div>`;
+                    document.getElementById("asamalar-alani").innerHTML = asamaHtml + document.getElementById("asamalar-alani").innerHTML; 
+                    anlikSesOynat("ses-avantaj"); 
+                }
+            }
+        }
+
+        // --- GÖRSEL EFEKTLER (SERBEST CANLILAR) ---
+        function canliSerbestBirak() {
+            const canli = document.createElement("div"); canli.classList.add("serbest-canli");
+            canli.innerText = canliIkonlari[Math.floor(Math.random() * canliIkonlari.length)]; // DÜZELTME
+            const pnl = document.getElementById("sol-panel");
+            canli.style.left = (pnl.clientWidth / 2) + "px"; canli.style.top = (pnl.clientHeight / 2) + "px";
+            pnl.appendChild(canli); serbestCanlilarListesi.push(canli); 
+        }
+        
+        let hareketDongusu;
+        function baslatHareketDongusu() {
+            if(hareketDongusu) clearInterval(hareketDongusu);
+            
+            let hiz = kutleCekimAgiAktif ? 100 : 3000; 
+            
+            hareketDongusu = setInterval(() => {
+                const pnl = document.getElementById("sol-panel");
+                let zaman = Date.now() / 500; 
+                
+                serbestCanlilarListesi.forEach((c, index) => {
+                    if (kutleCekimAgiAktif) {
+                        c.style.transition = "none"; 
+                        let aci = zaman + (index * 0.8); 
+                        let yaricap = 120 + (index * 6); 
+                        let x = (pnl.clientWidth / 2) - 20 + Math.cos(aci) * yaricap;
+                        let y = (pnl.clientHeight / 2) - 20 + Math.sin(aci) * yaricap; 
+                        
+                        c.style.left = x + "px"; c.style.top = y + "px";
+                        c.style.transform = `rotate(${aci * 100}deg)`; 
+                    } else {
+                        c.style.transition = "left 3s ease-in-out, top 3s ease-in-out, transform 3s linear";
+                        c.style.left = (Math.random() * (pnl.clientWidth - 50)) + "px";
+                        c.style.top = (Math.random() * (pnl.clientHeight - 50)) + "px";
+                        c.style.transform = `rotate(${(Math.random() - 0.5) * 360}deg)`;
+                    }
+                });
+            }, hiz);
+        }
+        baslatHareketDongusu(); 
+
+        function altinHucreDongusu() {
+            let beklemeSuresi = gezegenler[2].satinAlindi ? 8000 : 15000;
+            setTimeout(() => {
+                if (seviye >= 20 && Math.random() < 0.4) { 
+                    const pnl = document.getElementById("sol-panel");
+                    const altin = document.createElement("div");
+                    altin.classList.add("altin-hucre"); altin.innerText = "🌟";
+                    altin.style.left = (Math.random() * (pnl.clientWidth - 100)) + "px"; altin.style.top = (pnl.clientHeight - 100) + "px"; 
+                    
+                    altin.addEventListener("mousedown", function(e) {
+                        let odul = Math.floor(hucre * 0.5) + 1000; 
+                        hucre += odul; 
+                        anlikSesOynat("ses-avantaj"); 
+                        yuzenYaziOlustur(e.clientX, e.clientY, odul + " (ŞANS!)", "gold"); 
+                        ekraniGuncelle(); 
+                        altin.remove(); 
+                    });
+                    
+                    pnl.appendChild(altin); setTimeout(() => { if(altin.parentNode) altin.remove(); }, 4000);
+                }
+                altinHucreDongusu(); 
+            }, beklemeSuresi);
+        }
+        altinHucreDongusu(); 
+
+        // --- REKLAM FONKSİYONLARI ---
+        let reklamIzleniyor = false;
+
+        function odulluReklamIzle() {
+            if (reklamIzleniyor) return;
+            
+            let btn = document.getElementById("btn-odullu-reklam");
+            reklamIzleniyor = true;
+            btn.disabled = true;
+            btn.innerHTML = `<span>⏳ Reklam Yükleniyor...</span>`;
+            
+            try {
+                // Şimdilik simüle ediyoruz
+                setTimeout(() => {
+                    oduluVer();
+                }, 3000);
+
+            } catch (hata) {
+                console.error("Reklam yüklenirken bir hata oluştu:", hata);
+                butonuSifirla(btn);
+            }
+        }
+
+        function oduluVer() {
+            let jupiter = gezegenler[3].satinAlindi ? 3 : 1;
+            let sinerji = kutleCekimAgiAktif ? (gezegenler.filter(g => g.satinAlindi).length > 0 ? Math.pow(2, gezegenler.filter(g => g.satinAlindi).length) : 1) : 1;
+            let saniyelikUretim = otomatikUretimMiktari * uretimCarpani * prestijCarpani * jupiter * sinerji;
+            
+            let odul = Math.floor(saniyelikUretim * 100);
+            if (odul < 500) odul = 500; 
+            
+            hucre += odul;
+            ekraniGuncelle();
+            anlikSesOynat("ses-avantaj"); 
+            alert(`Tebrikler! Reklamı izlediğin için ${odul.toLocaleString()} Hücre kazandın!`);
+            
+            butonuSifirla(document.getElementById("btn-odullu-reklam"));
+            kaydet();
+        }
+
+        function butonuSifirla(btn) {
+            reklamIzleniyor = false;
+            btn.disabled = false;
+            btn.innerHTML = `<span>📺 Reklam İzle (Anında Büyük Ödül)</span><span style="background:rgba(0,0,0,0.5); padding:4px 8px; border-radius:5px;">Ücretsiz</span>`;
+        }
+
+        // --- PRESTİJ (BÜYÜK PATLAMA) SİSTEMİ ---
+        function buyukPatlamaYap() {
+            if(confirm("Tüm hücrelerin, gezegenlerin, KÜTLE ÇEKİM AĞIN ve geliştirmelerin sıfırlanacak! Kalıcı olarak x5 Üretim Çarpanı kazanacaksın. Emin misin?")) {
+                prestijCarpani += 5; 
+                hucre = 0; seviye = 1; sonrakiSeviyeMaliyeti = 10;
+                otomatikUretimMiktari = 0; tiklamaGucu = 1; tiklamaGucuMaliyeti = 50; 
+                uretimCarpani = 1.0; mutasyonMaliyeti = 200; entropiSeviyesi = 0;
+                
+                kutleCekimAgiAktif = false;
+                document.getElementById("kozmik-ag").style.display = "none";
+                document.getElementById("sinerji-metni").style.display = "none";
+                let btnKutle = document.getElementById("btn-kutlecekim");
+                btnKutle.innerHTML = `<span>🌌 Kütle Çekim Ağını Kur</span><span style="background:rgba(0,0,0,0.5); padding:4px 8px; border-radius:5px;">1 Milyar Hücre</span>`;
+                btnKutle.style.background = "";
+
+                asamalar.forEach(a => a.acildimi = false); document.getElementById("asamalar-alani").innerHTML = "";
+                gezegenler.forEach(g => g.satinAlindi = false);
+                document.querySelectorAll('.serbest-canli').forEach(e => e.remove()); serbestCanlilarListesi = [];
+                
+                kaydet(); ekraniGuncelle(); baslatHareketDongusu();
+                alert("Büyük Patlama Gerçekleşti! Evren yeniden kuruluyor...");
+            }
+        }
+
+        // --- VERİ KAYIT VE YÜKLEME ---
+        function kaydet() {
+            sonGirisZamani = Date.now(); 
+            let kaydedilenGezegenler = gezegenler.map(g => g.satinAlindi); 
+            const veriler = { hucre, seviye, sonrakiSeviyeMaliyeti, otomatikUretimMiktari, tiklamaGucu, tiklamaGucuMaliyeti, uretimCarpani, mutasyonMaliyeti, entropiSeviyesi, prestijCarpani, sonGirisZamani, kaydedilenGezegenler, kutleCekimAgiAktif };
+            localStorage.setItem("oyunKaydi", JSON.stringify(veriler));
+        }
+
+        function kaydetVeBilgiVer() { 
+            kaydet(); 
+            anlikSesOynat("ses-avantaj"); 
+            alert("Oyun Başarıyla Kaydedildi!"); 
+        }
+        
+        function oyunuSifirla() {
+            if(confirm("DİKKAT! Tüm emeğin, gezegenlerin ve Büyük Patlama (Prestij) çarpanı dahil HER ŞEY tamamen silinecek. Oyuna sıfırdan başlamak istediğine emin misin?")) {
+                localStorage.removeItem("oyunKaydi");
+                
+                hucre = 0; seviye = 1; sonrakiSeviyeMaliyeti = 10;
+                otomatikUretimMiktari = 0; tiklamaGucu = 1; tiklamaGucuMaliyeti = 50;
+                uretimCarpani = 1.0; mutasyonMaliyeti = 200;
+                entropiSeviyesi = 0; prestijCarpani = 1; kutleCekimAgiAktif = false;
+                
+                gezegenler.forEach(g => g.satinAlindi = false);
+                asamalar.forEach(a => a.acildimi = false);
+                
+                document.getElementById("asamalar-alani").innerHTML = "";
+                document.getElementById("kozmik-ag").style.display = "none";
+                document.getElementById("sinerji-metni").style.display = "none";
+                
+                let btnKutle = document.getElementById("btn-kutlecekim");
+                btnKutle.innerHTML = `<span>🌌 Kütle Çekim Ağını Kur</span><span style="background:rgba(0,0,0,0.5); padding:4px 8px; border-radius:5px;">1 Milyar Hücre</span>`;
+                btnKutle.style.background = "";
+                
+                document.querySelectorAll('.serbest-canli').forEach(e => e.remove());
+                serbestCanlilarListesi = [];
+                
+                ekraniGuncelle();
+                baslatHareketDongusu();
+                alert("Oyun tamamen sıfırlandı! Her şeye en baştan başlıyorsun.");
+            }
+        }
+
+        function yukle() {
+            let kayit = localStorage.getItem("oyunKaydi");
+            if(kayit) {
+                let veriler = JSON.parse(kayit);
+                hucre = veriler.hucre || 0; seviye = veriler.seviye || 1; sonrakiSeviyeMaliyeti = veriler.sonrakiSeviyeMaliyeti || 10;
+                otomatikUretimMiktari = veriler.otomatikUretimMiktari || 0; tiklamaGucu = veriler.tiklamaGucu || 1; tiklamaGucuMaliyeti = veriler.tiklamaGucuMaliyeti || 50;
+                uretimCarpani = veriler.uretimCarpani || 1.0; mutasyonMaliyeti = veriler.mutasyonMaliyeti || 200;
+                entropiSeviyesi = veriler.entropiSeviyesi || 0; prestijCarpani = veriler.prestijCarpani || 1;
+                kutleCekimAgiAktif = veriler.kutleCekimAgiAktif || false;
+                
+                if(veriler.kaydedilenGezegenler) {
+                    veriler.kaydedilenGezegenler.forEach((durum, index) => {
+                        if(gezegenler[index]) gezegenler[index].satinAlindi = durum;
+                    });
+                }
+
+                document.getElementById("asamalar-alani").innerHTML = ""; 
+                asamalar.forEach(a => {
+                    if (seviye >= a.kilitSeviyesi) {
+                        a.acildimi = true;
+                        let asamaHtml = `<div class="asama-kutusu" style="display:block;"><strong>${a.isim}</strong><br><small>Temel Güç: +${a.saniyelikKarti}</small></div>`;
+                        document.getElementById("asamalar-alani").innerHTML = asamaHtml + document.getElementById("asamalar-alani").innerHTML; 
+                    }
+                });
+
+                for(let i=0; i<entropiSeviyesi; i++) { canliSerbestBirak(); }
+
+                if(veriler.sonGirisZamani && otomatikUretimMiktari > 0) {
+                    let gecenSaniye = (Date.now() - veriler.sonGirisZamani) / 1000;
+                    if(gecenSaniye > 60) { 
+                        let jupiterCarpani = gezegenler[3].satinAlindi ? 3 : 1; 
+                        let sinerji = 1;
+                        if(kutleCekimAgiAktif) {
+                            let pc = gezegenler.filter(g => g.satinAlindi).length;
+                            if(pc > 0) sinerji = Math.pow(2, pc);
+                        }
+                        let offlineKazanc = gecenSaniye * (otomatikUretimMiktari * uretimCarpani * prestijCarpani * jupiterCarpani * sinerji);
+                        hucre += offlineKazanc;
+                        alert(`Hoş geldin! Yokluğunda ${Math.floor(offlineKazanc).toLocaleString()} hücre üretildi!`);
+                    }
+                }
+            }
+        }
+
+        // --- ÖĞRETİCİ MODAL İŞLEVLERİ ---
+        function ogreticiyiAc() { document.getElementById("ogretici-modal").style.display = "flex"; }
+        function ogreticiyiKapat() { document.getElementById("ogretici-modal").style.display = "none"; }
+
+        setTimeout(() => {
+            if (hucre === 0 && seviye === 1 && otomatikUretimMiktari === 0) {
+                ogreticiyiAc();
+            }
+        }, 800);
+
+        // --- ANA OYUN DÖNGÜSÜ (Saniyede 10 Kere Çalışır) ---
+        setInterval(function() {
+            let jupiterCarpani = gezegenler[3].satinAlindi ? 3 : 1; 
+            
+            let sinerjiCarpani = 1;
+            if (kutleCekimAgiAktif) {
+                let alinanGezegenSayisi = gezegenler.filter(g => g.satinAlindi).length;
+                if(alinanGezegenSayisi > 0) sinerjiCarpani = Math.pow(2, alinanGezegenSayisi);
+            }
+
+            let saniyelikKazanc = otomatikUretimMiktari * uretimCarpani * prestijCarpani * jupiterCarpani * sinerjiCarpani;
+            
+            // Saniyede 10 kez çalıştığı için kazancı 10'a bölerek ekliyoruz
+            if (saniyelikKazanc > 0) hucre += saniyelikKazanc / 10; 
+            
+            let zorlukCarpani = gezegenler[4].satinAlindi ? 1.35 : 1.50;
+
+            while (hucre >= sonrakiSeviyeMaliyeti && seviye < 100) {
+                hucre -= sonrakiSeviyeMaliyeti; seviye += 1; 
+                sonrakiSeviyeMaliyeti = Math.floor(sonrakiSeviyeMaliyeti * zorlukCarpani); 
+                asamaKontrolEt(); 
+                
+                let hedeflenenEntropi = Math.floor(seviye / 7);
+                if (hedeflenenEntropi > entropiSeviyesi) {
+                    let fark = hedeflenenEntropi - entropiSeviyesi;
+                    for (let i = 0; i < fark; i++) canliSerbestBirak();
+                    entropiSeviyesi = hedeflenenEntropi; 
+                }
+            }
+            ekraniGuncelle();
+        }, 100); 
+
+        // Otomatik kaydetme döngüsü
+        setInterval(kaydet, 5000);
+        
+        // Oyun başlatıldığında kayıtları yükle
+        yukle(); ekraniGuncelle(); baslatHareketDongusu(); 
+    </script>
+</body>
+</html>
