@@ -148,16 +148,6 @@
         <button class="basla-btn" onclick="oyunuBaslat()">🎮 Oyuna Başla</button>
     </div>
 
-    <audio id="ses-arkaplan" loop>
-        <source src="https://actions.google.com/sounds/v1/ambiences/space_ambience.ogg" type="audio/ogg">
-    </audio>
-    <audio id="ses-tiklama">
-        <source src="https://actions.google.com/sounds/v1/ui/pop_up_01.ogg" type="audio/ogg">
-    </audio>
-    <audio id="ses-avantaj">
-        <source src="https://actions.google.com/sounds/v1/arcade/coin_chime.ogg" type="audio/ogg">
-    </audio>
-
     <div id="sol-panel">
         <div id="kozmik-ag"></div>
         <div class="skor-kutusu">
@@ -258,53 +248,115 @@
         let kutleCekimAgiAktif = false;
         const kutleCekimMaliyeti = 1000000000; 
 
-        // --- SES MOTORU DEĞİŞKENLERİ VE FONKSİYONLARI ---
+        // --- %100 JAVASCRIPT RETRO SES MOTORU (Web Audio API) ---
         let sesAcik = false; 
+        let audioCtx;
+        let uzayDronu;
+        let droneGain;
 
-        // BAŞLATMA FONKSİYONU: Tıklamayla çağrıldığı için tüm kilitleri aşar
-        function oyunuBaslat() {
-            document.getElementById("baslangic-ekrani").style.display = "none";
-            let bgMuzik = document.getElementById("ses-arkaplan");
-            
-            let playPromise = bgMuzik.play();
-            if (playPromise !== undefined) {
-                playPromise.then(() => {
-                    sesAcik = true;
-                    let btnSes = document.getElementById("btn-ses-kontrol");
-                    btnSes.innerHTML = "🔊 Oyunun Sesi Açık (Kapatmak için tıkla)";
-                    btnSes.classList.add("ses-buton-aktif");
-                }).catch(e => {
-                    console.log("Ses çalınamadı:", e);
-                });
+        // Motoru ilk defa başlatan veya uykudaysa uyandıran fonksiyon
+        function sesMotorunuBaslat() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
             }
         }
-        
-        // DÜZELTİLMİŞ AÇ/KAPAT BUTONU
+
+        // Derin Uzay Uğultusu (Arkaplan Sesi)
+        function arkaplanDronuBaslat() {
+            if (!audioCtx) return;
+            if (uzayDronu) return; 
+
+            uzayDronu = audioCtx.createOscillator();
+            droneGain = audioCtx.createGain();
+            
+            uzayDronu.type = 'sine'; // Yumuşak uğultu
+            uzayDronu.frequency.setValueAtTime(60, audioCtx.currentTime); // Uzay hissi için düşük frekans
+            
+            droneGain.gain.setValueAtTime(0, audioCtx.currentTime);
+            droneGain.gain.linearRampToValueAtTime(0.05, audioCtx.currentTime + 2); // Sesi usulca aç
+            
+            uzayDronu.connect(droneGain);
+            droneGain.connect(audioCtx.destination);
+            uzayDronu.start();
+        }
+
+        function arkaplanDronuDurdur() {
+            if (droneGain && uzayDronu) {
+                droneGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 1); // Sesi yavaşça kıs
+                setTimeout(() => {
+                    if(uzayDronu) {
+                        uzayDronu.stop();
+                        uzayDronu.disconnect();
+                        uzayDronu = null;
+                    }
+                }, 1000);
+            }
+        }
+
+        // Tıklama ve Avantajlar İçin Retro Ses Üretici
+        function atariSesiUret(frekans, dalgaTipi, sure) {
+            if (!sesAcik || !audioCtx) return;
+            
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            
+            oscillator.type = dalgaTipi;
+            oscillator.frequency.setValueAtTime(frekans, audioCtx.currentTime);
+            
+            gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + sure);
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            
+            oscillator.start();
+            oscillator.stop(audioCtx.currentTime + sure);
+        }
+
+        function anlikSesOynat(tur) {
+            if (!sesAcik) return;
+            sesMotorunuBaslat();
+            
+            if (tur === "ses-tiklama") {
+                atariSesiUret(400, 'square', 0.1); // Klasik 8-bit "Bip"
+            } else if (tur === "ses-avantaj") {
+                atariSesiUret(800, 'sine', 0.1);   // Atari "Coin / Jeton" Sesi 1. Kısım
+                setTimeout(() => atariSesiUret(1200, 'sine', 0.2), 100); // 2. Kısım
+            }
+        }
+
+        // Buton Fonksiyonları
+        function oyunuBaslat() {
+            document.getElementById("baslangic-ekrani").style.display = "none";
+            sesMotorunuBaslat();
+            sesAcik = true;
+            arkaplanDronuBaslat();
+            
+            let btnSes = document.getElementById("btn-ses-kontrol");
+            btnSes.innerHTML = "🔊 Oyunun Sesi Açık (Kapatmak için tıkla)";
+            btnSes.classList.add("ses-buton-aktif");
+        }
+
         function sesiAcKapat() {
-            let bgMuzik = document.getElementById("ses-arkaplan");
+            sesMotorunuBaslat();
             let btnSes = document.getElementById("btn-ses-kontrol");
             
             if (sesAcik) {
-                bgMuzik.pause();
                 sesAcik = false;
+                arkaplanDronuDurdur();
                 btnSes.innerHTML = "🔇 Oyunu Sessizde Oynuyorsun (Sesi Aç)";
                 btnSes.classList.remove("ses-buton-aktif");
             } else {
-                bgMuzik.play();
                 sesAcik = true;
+                arkaplanDronuBaslat();
                 btnSes.innerHTML = "🔊 Oyunun Sesi Açık (Kapatmak için tıkla)";
                 btnSes.classList.add("ses-buton-aktif");
             }
         }
-
-        function anlikSesOynat(sesId) {
-            if (sesAcik) {
-                let sesDosyasi = document.getElementById(sesId);
-                sesDosyasi.pause(); 
-                sesDosyasi.currentTime = 0;
-                sesDosyasi.play().catch(e => {}); 
-            }
-        }
+        // --- SES MOTORU BİTİŞ ---
 
         // --- VERİTABANI (AŞAMALAR VE GEZEGENLER) ---
         const asamalar = [
