@@ -8,6 +8,26 @@
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #0d1117; color: #c9d1d9; margin: 0; display: flex; height: 100vh; overflow: hidden; }
         
+        /* --- BAŞLANGIÇ EKRANI STİLLERİ --- */
+        #baslangic-ekrani {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background-color: rgba(13, 17, 23, 0.95);
+            backdrop-filter: blur(15px);
+            z-index: 9999;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+        .basla-btn {
+            background: linear-gradient(90deg, #2ea043, #3fb950);
+            color: white; border: 2px solid #4ade80; padding: 20px 50px; font-size: 28px; font-weight: bold;
+            border-radius: 15px; cursor: pointer; box-shadow: 0 0 30px rgba(46, 160, 67, 0.5);
+            transition: transform 0.2s, box-shadow 0.2s;
+            animation: kalpAtisi 1.5s infinite alternate;
+            margin-top: 30px;
+        }
+        .basla-btn:hover { transform: scale(1.1); box-shadow: 0 0 50px rgba(46, 160, 67, 0.9); }
+        @keyframes kalpAtisi { from { transform: scale(1); } to { transform: scale(1.05); } }
+        .baslik-logo { font-size: 60px; color: #58a6ff; text-shadow: 0 0 30px rgba(88, 166, 255, 0.8); margin-bottom: 10px; text-align: center;}
+        
         #sol-panel { 
             flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; 
             background-color: #0d1117;
@@ -99,38 +119,12 @@
         .gezegen-satin-alindi { background: linear-gradient(135deg, #166534, #14532d) !important; border-color: #22c55e !important; color: white !important; cursor: default !important; transform: none !important;}
         .gezegen-etiket { display:inline-block; margin-top:8px; padding:4px 8px; background:rgba(0,0,0,0.6); border-radius:5px; font-size:12px; font-weight:bold;}
         
-        /* --- REKLAM VE BANNER STİLLERİ --- */
-        .reklam-banner {
-            margin-top: 20px;
-            width: 100%;
-            height: 90px;
-            background: repeating-linear-gradient( 45deg, #21262d, #21262d 10px, #161b22 10px, #161b22 20px );
-            border: 1px dashed #58a6ff;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #8b949e;
-            font-size: 12px;
-            text-align: center;
-            box-sizing: border-box;
-        }
+        .reklam-banner { margin-top: 20px; width: 100%; height: 90px; background: repeating-linear-gradient( 45deg, #21262d, #21262d 10px, #161b22 10px, #161b22 20px ); border: 1px dashed #58a6ff; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #8b949e; font-size: 12px; text-align: center; box-sizing: border-box; }
 
-        #btn-odullu-reklam {
-            background: linear-gradient(90deg, #166534, #15803d);
-            border: 2px solid #4ade80;
-            margin-top: 20px;
-        }
-        #btn-odullu-reklam:hover:not(:disabled) {
-            background: linear-gradient(90deg, #15803d, #16a34a);
-        }
-        #btn-odullu-reklam:disabled {
-            background: #21262d;
-            border-color: #30363d;
-            color: #8b949e;
-        }
+        #btn-odullu-reklam { background: linear-gradient(90deg, #166534, #15803d); border: 2px solid #4ade80; margin-top: 20px; }
+        #btn-odullu-reklam:hover:not(:disabled) { background: linear-gradient(90deg, #15803d, #16a34a); }
+        #btn-odullu-reklam:disabled { background: #21262d; border-color: #30363d; color: #8b949e; }
 
-        /* --- ÖĞRETİCİ MODAL CSS --- */
         .modal-arkaplan { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); backdrop-filter: blur(5px); justify-content: center; align-items: center; }
         .modal-icerik { background-color: #161b22; padding: 30px; border: 1px solid #30363d; border-radius: 15px; width: 80%; max-width: 600px; color: #c9d1d9; box-shadow: 0 0 50px rgba(88, 166, 255, 0.3); }
         .modal-baslik { color: #58a6ff; margin-top: 0; border-bottom: 1px solid #30363d; padding-bottom: 10px; font-size: 24px; }
@@ -140,7 +134,6 @@
         .bilgi-buton { background-color: #2ea043; color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; margin-bottom: 10px; width: 100%; font-size: 14px; transition: background 0.3s; }
         .bilgi-buton:hover { background-color: #3fb950; }
         
-        /* --- SES BUTONU ÖZEL STİL --- */
         .ses-buton { background-color: #e34c26; border: 1px solid #ff7b72; }
         .ses-buton:hover { background-color: #f56565; }
         .ses-buton-aktif { background-color: #8957e5; border: 1px solid #a371f7; }
@@ -148,6 +141,12 @@
     </style>
 </head>
 <body>
+
+    <div id="baslangic-ekrani">
+        <h1 class="baslik-logo">🌌 Hücre Evrimi</h1>
+        <p style="color: #c9d1d9; font-size: 18px; margin-bottom: 20px;">Evreni fethetmeye hazır mısın?</p>
+        <button class="basla-btn" onclick="oyunuBaslat()">🎮 Oyuna Başla</button>
+    </div>
 
     <audio id="ses-arkaplan" loop>
         <source src="https://actions.google.com/sounds/v1/ambiences/space_ambience.ogg" type="audio/ogg">
@@ -230,14 +229,6 @@
             <button class="alt-btn" onclick="kaydetVeBilgiVer()">💾 Oyunu Kaydet</button>
             <button class="alt-btn" style="color:#ff7b72; font-weight:bold; border-color:#e63946;" onclick="oyunuSifirla()">🔄 En Baştan Başla</button>
         </div>
-        
-        <ins class="adsbygoogle"
-             style="display:inline-block;width:320px;height:90px"
-             data-ad-client="ca-pub-SENIN_ID_NUMARAN"
-             data-ad-slot="SENIN_REKLAM_SLOT_NUMARAN"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
     </div>
 
     <div id="ogretici-modal" class="modal-arkaplan">
@@ -261,8 +252,6 @@
         let otomatikUretimMiktari = 0; let tiklamaGucu = 1; let tiklamaGucuMaliyeti = 50; 
         let uretimCarpani = 1.0; let mutasyonMaliyeti = 200;
         let entropiSeviyesi = 0; let serbestCanlilarListesi = []; 
-        
-        // DÜZELTME: "canliİkonlari" ismindeki Türkçe karakter (İ) kaldırılıp "canliIkonlari" yapıldı.
         const canliIkonlari = ['🦠', '🧬', '⚡', '💧', '🐟', '🦎']; 
         
         let prestijCarpani = 1; let sonGirisZamani = Date.now();
@@ -271,7 +260,26 @@
 
         // --- SES MOTORU DEĞİŞKENLERİ VE FONKSİYONLARI ---
         let sesAcik = false; 
+
+        // BAŞLATMA FONKSİYONU: Tıklamayla çağrıldığı için tüm kilitleri aşar
+        function oyunuBaslat() {
+            document.getElementById("baslangic-ekrani").style.display = "none";
+            let bgMuzik = document.getElementById("ses-arkaplan");
+            
+            let playPromise = bgMuzik.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    sesAcik = true;
+                    let btnSes = document.getElementById("btn-ses-kontrol");
+                    btnSes.innerHTML = "🔊 Oyunun Sesi Açık (Kapatmak için tıkla)";
+                    btnSes.classList.add("ses-buton-aktif");
+                }).catch(e => {
+                    console.log("Ses çalınamadı:", e);
+                });
+            }
+        }
         
+        // DÜZELTİLMİŞ AÇ/KAPAT BUTONU
         function sesiAcKapat() {
             let bgMuzik = document.getElementById("ses-arkaplan");
             let btnSes = document.getElementById("btn-ses-kontrol");
@@ -282,39 +290,21 @@
                 btnSes.innerHTML = "🔇 Oyunu Sessizde Oynuyorsun (Sesi Aç)";
                 btnSes.classList.remove("ses-buton-aktif");
             } else {
-                // Tarayıcı kilidini aşmak için yükleme (load) komutu eklendi.
-                bgMuzik.load(); 
-                let playPromise = bgMuzik.play();
-                
-                if (playPromise !== undefined) {
-                    playPromise.then(_ => {
-                        sesAcik = true;
-                        btnSes.innerHTML = "🔊 Oyunun Sesi Açık (Kapatmak için tıkla)";
-                        btnSes.classList.add("ses-buton-aktif");
-                    }).catch(error => {
-                        console.log("Tarayıcı engelledi, lütfen önce ekranda herhangi bir yere tıklayın:", error);
-                        alert("Tarayıcınızın ses kilidini açmak için lütfen önce oyuna bir kez tıklayın, ardından Sesi Aç butonuna basın!");
-                    });
-                }
+                bgMuzik.play();
+                sesAcik = true;
+                btnSes.innerHTML = "🔊 Oyunun Sesi Açık (Kapatmak için tıkla)";
+                btnSes.classList.add("ses-buton-aktif");
             }
         }
 
         function anlikSesOynat(sesId) {
             if (sesAcik) {
                 let sesDosyasi = document.getElementById(sesId);
-                // Sesin her seferinde baştan temiz çalması için eklendi.
                 sesDosyasi.pause(); 
                 sesDosyasi.currentTime = 0;
-                sesDosyasi.play().catch(e => {console.log("Ses efekti engellendi", e)}); 
+                sesDosyasi.play().catch(e => {}); 
             }
         }
-
-        // --- GİZLİ KİLİT AÇICI: Kullanıcı ekrana tıkladığında ses motorlarını serbest bırakır ---
-        document.body.addEventListener('click', function() {
-            // Sadece bir kere çalışması yeterlidir, bu tarayıcıya "kullanıcı burada" der.
-            // Bu kodun içini boş bırakmak bile tıklamayı algılatır.
-        }, { once: true });
-
 
         // --- VERİTABANI (AŞAMALAR VE GEZEGENLER) ---
         const asamalar = [
@@ -338,7 +328,7 @@
             { isim: "🪐 Satürn Halkaları", maliyet: 250000000, aciklama: "Seviye atlama maliyetlerini ucuzlatır (Oyun hızlanır).", satinAlindi: false }
         ];
 
-        // --- ARAYÜZ GÜNCELLEME (DOM MANİPÜLASYONU) ---
+        // --- ARAYÜZ GÜNCELLEME ---
         function ekraniGuncelle() {
             document.getElementById("hucre-sayisi").innerText = Math.floor(hucre);
             
@@ -485,7 +475,7 @@
         // --- GÖRSEL EFEKTLER (SERBEST CANLILAR) ---
         function canliSerbestBirak() {
             const canli = document.createElement("div"); canli.classList.add("serbest-canli");
-            canli.innerText = canliIkonlari[Math.floor(Math.random() * canliIkonlari.length)]; // DÜZELTME
+            canli.innerText = canliIkonlari[Math.floor(Math.random() * canliIkonlari.length)];
             const pnl = document.getElementById("sol-panel");
             canli.style.left = (pnl.clientWidth / 2) + "px"; canli.style.top = (pnl.clientHeight / 2) + "px";
             pnl.appendChild(canli); serbestCanlilarListesi.push(canli); 
@@ -559,11 +549,7 @@
             btn.innerHTML = `<span>⏳ Reklam Yükleniyor...</span>`;
             
             try {
-                // Şimdilik simüle ediyoruz
-                setTimeout(() => {
-                    oduluVer();
-                }, 3000);
-
+                setTimeout(() => { oduluVer(); }, 3000);
             } catch (hata) {
                 console.error("Reklam yüklenirken bir hata oluştu:", hata);
                 butonuSifirla(btn);
@@ -578,9 +564,7 @@
             let odul = Math.floor(saniyelikUretim * 100);
             if (odul < 500) odul = 500; 
             
-            hucre += odul;
-            ekraniGuncelle();
-            anlikSesOynat("ses-avantaj"); 
+            hucre += odul; ekraniGuncelle(); anlikSesOynat("ses-avantaj"); 
             alert(`Tebrikler! Reklamı izlediğin için ${odul.toLocaleString()} Hücre kazandın!`);
             
             butonuSifirla(document.getElementById("btn-odullu-reklam"));
@@ -588,16 +572,14 @@
         }
 
         function butonuSifirla(btn) {
-            reklamIzleniyor = false;
-            btn.disabled = false;
+            reklamIzleniyor = false; btn.disabled = false;
             btn.innerHTML = `<span>📺 Reklam İzle (Anında Büyük Ödül)</span><span style="background:rgba(0,0,0,0.5); padding:4px 8px; border-radius:5px;">Ücretsiz</span>`;
         }
 
         // --- PRESTİJ (BÜYÜK PATLAMA) SİSTEMİ ---
         function buyukPatlamaYap() {
             if(confirm("Tüm hücrelerin, gezegenlerin, KÜTLE ÇEKİM AĞIN ve geliştirmelerin sıfırlanacak! Kalıcı olarak x5 Üretim Çarpanı kazanacaksın. Emin misin?")) {
-                prestijCarpani += 5; 
-                hucre = 0; seviye = 1; sonrakiSeviyeMaliyeti = 10;
+                prestijCarpani += 5; hucre = 0; seviye = 1; sonrakiSeviyeMaliyeti = 10;
                 otomatikUretimMiktari = 0; tiklamaGucu = 1; tiklamaGucuMaliyeti = 50; 
                 uretimCarpani = 1.0; mutasyonMaliyeti = 200; entropiSeviyesi = 0;
                 
@@ -625,11 +607,7 @@
             localStorage.setItem("oyunKaydi", JSON.stringify(veriler));
         }
 
-        function kaydetVeBilgiVer() { 
-            kaydet(); 
-            anlikSesOynat("ses-avantaj"); 
-            alert("Oyun Başarıyla Kaydedildi!"); 
-        }
+        function kaydetVeBilgiVer() { kaydet(); anlikSesOynat("ses-avantaj"); alert("Oyun Başarıyla Kaydedildi!"); }
         
         function oyunuSifirla() {
             if(confirm("DİKKAT! Tüm emeğin, gezegenlerin ve Büyük Patlama (Prestij) çarpanı dahil HER ŞEY tamamen silinecek. Oyuna sıfırdan başlamak istediğine emin misin?")) {
@@ -640,23 +618,18 @@
                 uretimCarpani = 1.0; mutasyonMaliyeti = 200;
                 entropiSeviyesi = 0; prestijCarpani = 1; kutleCekimAgiAktif = false;
                 
-                gezegenler.forEach(g => g.satinAlindi = false);
-                asamalar.forEach(a => a.acildimi = false);
+                gezegenler.forEach(g => g.satinAlindi = false); asamalar.forEach(a => a.acildimi = false);
                 
-                document.getElementById("asamalar-alani").innerHTML = "";
-                document.getElementById("kozmik-ag").style.display = "none";
+                document.getElementById("asamalar-alani").innerHTML = ""; document.getElementById("kozmik-ag").style.display = "none";
                 document.getElementById("sinerji-metni").style.display = "none";
                 
                 let btnKutle = document.getElementById("btn-kutlecekim");
                 btnKutle.innerHTML = `<span>🌌 Kütle Çekim Ağını Kur</span><span style="background:rgba(0,0,0,0.5); padding:4px 8px; border-radius:5px;">1 Milyar Hücre</span>`;
                 btnKutle.style.background = "";
                 
-                document.querySelectorAll('.serbest-canli').forEach(e => e.remove());
-                serbestCanlilarListesi = [];
+                document.querySelectorAll('.serbest-canli').forEach(e => e.remove()); serbestCanlilarListesi = [];
                 
-                ekraniGuncelle();
-                baslatHareketDongusu();
-                alert("Oyun tamamen sıfırlandı! Her şeye en baştan başlıyorsun.");
+                ekraniGuncelle(); baslatHareketDongusu(); alert("Oyun tamamen sıfırlandı! Her şeye en baştan başlıyorsun.");
             }
         }
 
@@ -671,9 +644,7 @@
                 kutleCekimAgiAktif = veriler.kutleCekimAgiAktif || false;
                 
                 if(veriler.kaydedilenGezegenler) {
-                    veriler.kaydedilenGezegenler.forEach((durum, index) => {
-                        if(gezegenler[index]) gezegenler[index].satinAlindi = durum;
-                    });
+                    veriler.kaydedilenGezegenler.forEach((durum, index) => { if(gezegenler[index]) gezegenler[index].satinAlindi = durum; });
                 }
 
                 document.getElementById("asamalar-alani").innerHTML = ""; 
@@ -690,15 +661,10 @@
                 if(veriler.sonGirisZamani && otomatikUretimMiktari > 0) {
                     let gecenSaniye = (Date.now() - veriler.sonGirisZamani) / 1000;
                     if(gecenSaniye > 60) { 
-                        let jupiterCarpani = gezegenler[3].satinAlindi ? 3 : 1; 
-                        let sinerji = 1;
-                        if(kutleCekimAgiAktif) {
-                            let pc = gezegenler.filter(g => g.satinAlindi).length;
-                            if(pc > 0) sinerji = Math.pow(2, pc);
-                        }
+                        let jupiterCarpani = gezegenler[3].satinAlindi ? 3 : 1; let sinerji = 1;
+                        if(kutleCekimAgiAktif) { let pc = gezegenler.filter(g => g.satinAlindi).length; if(pc > 0) sinerji = Math.pow(2, pc); }
                         let offlineKazanc = gecenSaniye * (otomatikUretimMiktari * uretimCarpani * prestijCarpani * jupiterCarpani * sinerji);
-                        hucre += offlineKazanc;
-                        alert(`Hoş geldin! Yokluğunda ${Math.floor(offlineKazanc).toLocaleString()} hücre üretildi!`);
+                        hucre += offlineKazanc; alert(`Hoş geldin! Yokluğunda ${Math.floor(offlineKazanc).toLocaleString()} hücre üretildi!`);
                     }
                 }
             }
@@ -708,48 +674,31 @@
         function ogreticiyiAc() { document.getElementById("ogretici-modal").style.display = "flex"; }
         function ogreticiyiKapat() { document.getElementById("ogretici-modal").style.display = "none"; }
 
-        setTimeout(() => {
-            if (hucre === 0 && seviye === 1 && otomatikUretimMiktari === 0) {
-                ogreticiyiAc();
-            }
-        }, 800);
-
-        // --- ANA OYUN DÖNGÜSÜ (Saniyede 10 Kere Çalışır) ---
+        // --- ANA OYUN DÖNGÜSÜ ---
         setInterval(function() {
             let jupiterCarpani = gezegenler[3].satinAlindi ? 3 : 1; 
-            
             let sinerjiCarpani = 1;
-            if (kutleCekimAgiAktif) {
-                let alinanGezegenSayisi = gezegenler.filter(g => g.satinAlindi).length;
-                if(alinanGezegenSayisi > 0) sinerjiCarpani = Math.pow(2, alinanGezegenSayisi);
-            }
+            if (kutleCekimAgiAktif) { let alinanGezegenSayisi = gezegenler.filter(g => g.satinAlindi).length; if(alinanGezegenSayisi > 0) sinerjiCarpani = Math.pow(2, alinanGezegenSayisi); }
 
             let saniyelikKazanc = otomatikUretimMiktari * uretimCarpani * prestijCarpani * jupiterCarpani * sinerjiCarpani;
-            
-            // Saniyede 10 kez çalıştığı için kazancı 10'a bölerek ekliyoruz
             if (saniyelikKazanc > 0) hucre += saniyelikKazanc / 10; 
             
             let zorlukCarpani = gezegenler[4].satinAlindi ? 1.35 : 1.50;
 
             while (hucre >= sonrakiSeviyeMaliyeti && seviye < 100) {
-                hucre -= sonrakiSeviyeMaliyeti; seviye += 1; 
-                sonrakiSeviyeMaliyeti = Math.floor(sonrakiSeviyeMaliyeti * zorlukCarpani); 
+                hucre -= sonrakiSeviyeMaliyeti; seviye += 1; sonrakiSeviyeMaliyeti = Math.floor(sonrakiSeviyeMaliyeti * zorlukCarpani); 
                 asamaKontrolEt(); 
                 
                 let hedeflenenEntropi = Math.floor(seviye / 7);
                 if (hedeflenenEntropi > entropiSeviyesi) {
-                    let fark = hedeflenenEntropi - entropiSeviyesi;
-                    for (let i = 0; i < fark; i++) canliSerbestBirak();
+                    let fark = hedeflenenEntropi - entropiSeviyesi; for (let i = 0; i < fark; i++) canliSerbestBirak();
                     entropiSeviyesi = hedeflenenEntropi; 
                 }
             }
             ekraniGuncelle();
         }, 100); 
 
-        // Otomatik kaydetme döngüsü
         setInterval(kaydet, 5000);
-        
-        // Oyun başlatıldığında kayıtları yükle
         yukle(); ekraniGuncelle(); baslatHareketDongusu(); 
     </script>
 </body>
