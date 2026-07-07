@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hücre Evrimi Tycoon - Kusursuz Sürüm</title>
+    <title>Hücre Evrimi Tycoon - Kusursuz 3D Sürüm</title>
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8821638803642284" crossorigin="anonymous"></script>
     
@@ -24,34 +24,103 @@
 
         #sag-panel { width: 400px; background-color: #161b22; padding: 20px; border-left: 1px solid #30363d; box-shadow: -10px 0 30px rgba(0,0,0,0.9); overflow-y: auto; display: flex; flex-direction: column; z-index: 100;}
         
-        .skor-kutusu { text-align: center; margin-bottom: 20px; z-index: 50; background: rgba(13, 17, 23, 0.7); padding: 15px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.5);}
-        .skor-kutusu h1 { margin: 0; color: #58a6ff; font-size: 50px; text-shadow: 0 0 20px rgba(88, 166, 255, 0.5);}
-        .skor-kutusu p { margin: 5px 0; color: #e1e4e8; }
+        .skor-kutusu { 
+            position: absolute; 
+            top: 20px; 
+            left: 20px; 
+            z-index: 50; 
+            background: rgba(13, 17, 23, 0.4); 
+            padding: 10px 25px; 
+            border-radius: 12px; 
+            border: 1px solid rgba(255,255,255,0.05); 
+            backdrop-filter: blur(5px); 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: flex; 
+            align-items: center; 
+            flex-wrap: wrap; 
+            gap: 25px; 
+            pointer-events: none; 
+        }
+        .skor-kutusu h1 { margin: 0; color: #58a6ff; font-size: 40px; text-shadow: 0 0 20px rgba(88, 166, 255, 0.5);}
+        .skor-kutusu p { margin: 0; color: #e1e4e8; font-size: 14px; white-space: nowrap; }
         
-        .sahne { width: 150px; height: 150px; perspective: 1000px; margin: 50px auto; z-index: 30; position: relative; }
-        .tiklama-kapsayici { width: 100%; height: 100%; transition: transform 0.1s; cursor: pointer; user-select: none; }
-        .tiklama-kapsayici:active { transform: scale(0.85); }
-        .kup { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; animation: donme 10s infinite linear; }
-        .yuzey { position: absolute; width: 150px; height: 150px; background: rgba(15, 185, 177, 0.15); border: 2px solid rgba(15, 185, 177, 0.9); box-shadow: 0 0 40px rgba(15, 185, 177, 0.5) inset; display: flex; align-items: center; justify-content: center; font-size: 50px; backdrop-filter: blur(2px);}
-        .on { transform: translateZ(75px); } .arka { transform: rotateY(180deg) translateZ(75px); } .sag { transform: rotateY(90deg) translateZ(75px); } .sol { transform: rotateY(-90deg) translateZ(75px); } .ust { transform: rotateX(90deg) translateZ(75px); } .alt { transform: rotateX(-90deg) translateZ(75px); }
-        @keyframes donme { 0% { transform: rotateX(0deg) rotateY(0deg); } 100% { transform: rotateX(360deg) rotateY(360deg); } }
+        /* --------------------------------------------------- */
+        /* TAM ŞEFFAFA YAKIN 3D KRİSTAL KÜRE CSS KODLARI       */
+        /* --------------------------------------------------- */
+        .sahne { width: 170px; height: 170px; margin: 50px auto; z-index: 30; position: relative; perspective: 1000px; }
+        .tiklama-kapsayici { width: 100%; height: 100%; transition: transform 0.1s; cursor: pointer; user-select: none; transform-style: preserve-3d; }
+        .tiklama-kapsayici:active { transform: scale(0.9) translateZ(-20px); }
 
+        .kure-modern { 
+            width: 100%; height: 100%; 
+            border-radius: 50%; 
+            background: radial-gradient(circle at 30% 30%, rgba(56, 189, 248, 0.25) 0%, rgba(2, 132, 199, 0.1) 40%, rgba(30, 58, 138, 0.1) 80%, rgba(2, 6, 23, 0.3) 100%);
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
+            box-shadow: 
+                inset -35px -35px 50px rgba(0, 0, 0, 0.6), 
+                inset 20px 20px 40px rgba(255, 255, 255, 0.3), 
+                inset 0 0 20px rgba(56, 189, 248, 0.5),
+                0 0 40px rgba(2, 132, 199, 0.4); 
+            display: flex; align-items: center; justify-content: center; 
+            font-size: 65px; 
+            position: relative;
+            transform-style: preserve-3d;
+            animation: modernNefes 4s infinite alternate ease-in-out;
+        }
+
+        .kure-modern::after {
+            content: ''; position: absolute; top: 5%; left: 10%; width: 50%; height: 30%; border-radius: 50%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 100%);
+            transform: rotate(-25deg) translateZ(1px); pointer-events: none; filter: blur(1px);
+        }
+
+        .kure-modern::before {
+            content: ''; position: absolute; top: -15%; left: -15%; width: 130%; height: 130%; border-radius: 50%;
+            background: conic-gradient(from 0deg, transparent 0%, rgba(56, 189, 248, 0.05) 25%, rgba(56, 189, 248, 0.2) 50%, transparent 75%);
+            animation: auraDonus 6s linear infinite; filter: blur(15px); z-index: -1; pointer-events: none;
+        }
+
+        #kure-ikon {
+            z-index: 5; text-shadow: 0 0 25px rgba(255,255,255,0.8);
+            transform: translateZ(20px); animation: ikonYuzme 3s infinite alternate ease-in-out;
+        }
+
+        @keyframes modernNefes {
+            0% { transform: scale(0.95); box-shadow: inset -35px -35px 50px rgba(0,0,0,0.6), inset 20px 20px 40px rgba(255,255,255,0.3), inset 0 0 20px rgba(56, 189, 248, 0.5), 0 0 30px rgba(2, 132, 199, 0.3); }
+            100% { transform: scale(1.05); box-shadow: inset -35px -35px 50px rgba(0,0,0,0.6), inset 20px 20px 40px rgba(255,255,255,0.3), inset 0 0 20px rgba(56, 189, 248, 0.5), 0 0 60px rgba(56, 189, 248, 0.7); }
+        }
+        @keyframes auraDonus { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes ikonYuzme { from { transform: translateY(-5px) scale(0.95) translateZ(20px); } to { transform: translateY(5px) scale(1.05) translateZ(20px); } }
+
+        /* 3D YÖRÜNGELER VE 3D GEZEGENLER */
         #yorungeler-merkezi { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotateX(70deg); transform-style: preserve-3d; width: 0; height: 0; z-index: 10; pointer-events: none; }
-        .yorunge { position: absolute; top: 50%; left: 50%; border: 2px solid rgba(255, 255, 255, 0.1); border-radius: 50%; display: none; transform-style: preserve-3d; box-shadow: 0 0 15px rgba(255,255,255,0.05); }
+        
+        .yorunge { 
+            position: absolute; top: 50%; left: 50%; border: 2px solid rgba(255, 255, 255, 0.15); 
+            border-radius: 50%; display: none; transform-style: preserve-3d; 
+            box-shadow: 0 0 10px rgba(255,255,255,0.05), inset 0 0 10px rgba(255,255,255,0.05); 
+        }
+        
         .gezegen-obje { position: absolute; top: 0; left: 50%; margin-left: -22px; margin-top: -22px; transform-style: preserve-3d; }
-        .gezegen-kure { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; box-shadow: inset -10px -10px 20px rgba(0,0,0,0.8), 0 0 15px rgba(255,255,255,0.3); border: 1px solid rgba(255,255,255,0.2); }
+        
+        .gezegen-kure { 
+            width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; 
+            box-shadow: inset -15px -15px 25px rgba(0,0,0,0.9), inset 5px 5px 15px rgba(255,255,255,0.4), 0 0 15px rgba(255,255,255,0.2); 
+            border: 1px solid rgba(255,255,255,0.1); transition: 0.5s; 
+        }
 
-        .marduk-renk { background: radial-gradient(circle at 30% 30%, #ffb703, #b85d00); }
-        .ay-renk { background: radial-gradient(circle at 30% 30%, #f8fafc, #475569); }
-        .mars-renk { background: radial-gradient(circle at 30% 30%, #f87171, #7f1d1d); }
-        .jupiter-renk { background: radial-gradient(circle at 30% 30%, #fbbf24, #78350f); width: 60px; height: 60px; margin-left: -8px; margin-top: -8px; font-size: 30px;}
-        .saturn-renk { background: radial-gradient(circle at 30% 30%, #fde047, #422006); width: 80px; height: 80px; margin-left: -18px; margin-top: -18px; font-size: 45px;}
+        .marduk-renk { background: radial-gradient(circle at 30% 30%, #ffb703 0%, #b85d00 60%, #4a2500 100%); }
+        .ay-renk { background: radial-gradient(circle at 30% 30%, #f8fafc 0%, #94a3b8 50%, #334155 100%); }
+        .mars-renk { background: radial-gradient(circle at 30% 30%, #f87171 0%, #b91c1c 50%, #450a0a 100%); }
+        .jupiter-renk { background: radial-gradient(circle at 30% 30%, #fbbf24 0%, #b45309 50%, #451a03 100%); width: 60px; height: 60px; margin-left: -8px; margin-top: -8px; font-size: 30px;}
+        .saturn-renk { background: radial-gradient(circle at 30% 30%, #fde047 0%, #a16207 50%, #422006 100%); width: 80px; height: 80px; margin-left: -18px; margin-top: -18px; font-size: 45px;}
 
-        #yorunge-0 { width: 300px; height: 300px; margin: -150px 0 0 -150px; animation: donDuz 6s linear infinite; } #yorunge-0 .gezegen-obje { animation: donTers 6s linear infinite; }
-        #yorunge-1 { width: 420px; height: 420px; margin: -210px 0 0 -210px; animation: donTersYorunge 12s linear infinite; } #yorunge-1 .gezegen-obje { animation: donDuzObje 12s linear infinite; }
-        #yorunge-2 { width: 550px; height: 550px; margin: -275px 0 0 -275px; animation: donDuz 20s linear infinite; } #yorunge-2 .gezegen-obje { animation: donTers 20s linear infinite; }
-        #yorunge-3 { width: 700px; height: 700px; margin: -350px 0 0 -350px; animation: donDuz 35s linear infinite; } #yorunge-3 .gezegen-obje { animation: donTers 35s linear infinite; }
-        #yorunge-4 { width: 900px; height: 900px; margin: -450px 0 0 -450px; animation: donDuz 50s linear infinite; } #yorunge-4 .gezegen-obje { animation: donTers 50s linear infinite; }
+        #yorunge-0 { width: 450px; height: 450px; margin: -225px 0 0 -225px; animation: donDuz 8s linear infinite; } #yorunge-0 .gezegen-obje { animation: donTers 8s linear infinite; }
+        #yorunge-1 { width: 600px; height: 600px; margin: -300px 0 0 -300px; animation: donTersYorunge 15s linear infinite; } #yorunge-1 .gezegen-obje { animation: donDuzObje 15s linear infinite; }
+        #yorunge-2 { width: 800px; height: 800px; margin: -400px 0 0 -400px; animation: donDuz 25s linear infinite; } #yorunge-2 .gezegen-obje { animation: donTers 25s linear infinite; }
+        #yorunge-3 { width: 1050px; height: 1050px; margin: -525px 0 0 -525px; animation: donDuz 40s linear infinite; } #yorunge-3 .gezegen-obje { animation: donTers 40s linear infinite; }
+        #yorunge-4 { width: 1350px; height: 1350px; margin: -675px 0 0 -675px; animation: donDuz 60s linear infinite; } #yorunge-4 .gezegen-obje { animation: donTers 60s linear infinite; }
 
         @keyframes donDuz { from { transform: rotateZ(0deg); } to { transform: rotateZ(360deg); } }
         @keyframes donTersYorunge { from { transform: rotateZ(360deg); } to { transform: rotateZ(0deg); } }
@@ -88,12 +157,27 @@
         .alt-btn { flex: 1; padding: 10px; background: #21262d; color: #c9d1d9; border: 1px solid #30363d; border-radius: 5px; cursor: pointer; font-size: 12px; transition: 0.2s;}
         .alt-btn:hover { background: #30363d; }
 
-        .gezegen-btn { background: linear-gradient(135deg, #1e293b, #0f172a); color: #fff; border: 1px solid #3b82f6; padding: 12px; border-radius: 8px; cursor: pointer; text-align: left; margin-top: 10px; width: 100%; transition: 0.3s; position: relative; overflow: hidden;}
+        .gezegen-btn { background: linear-gradient(135deg, #1e293b, #0f172a); color: #fff; border: 1px solid #3b82f6; padding: 12px; border-radius: 8px; cursor: pointer; text-align: left; width: 100%; transition: 0.3s; position: relative; overflow: hidden;}
         .gezegen-btn:hover:not(:disabled) { box-shadow: 0 0 15px rgba(59, 130, 246, 0.5); transform: translateY(-2px); }
         .gezegen-btn:disabled { background: #161b22; color: #6e7681; border-color: #30363d; cursor: not-allowed; box-shadow: none; }
         .gezegen-satin-alindi { background: linear-gradient(135deg, #166534, #14532d) !important; border-color: #22c55e !important; color: white !important; cursor: default !important; transform: none !important;}
+        
+        .gezegen-hasarli { border-color: #ef4444 !important; box-shadow: 0 0 15px rgba(239, 68, 68, 0.5) !important; animation: titreme 0.5s infinite alternate; }
+        @keyframes titreme { from { transform: translateX(-1px); } to { transform: translateX(1px); } }
+
         .gezegen-etiket { display:inline-block; margin-top:8px; padding:4px 8px; background:rgba(0,0,0,0.6); border-radius:5px; font-size:12px; font-weight:bold;}
         
+        /* İKİ FARKLI KALKAN TİPİ İÇİN YENİ CSS */
+        .isi-kalkan-btn { background: linear-gradient(135deg, #ea580c, #c2410c); color: white; border: 1px solid #f97316; padding: 8px; border-radius: 6px; cursor: pointer; font-size: 11px; transition: 0.2s; margin-top: 5px; width: 100%; font-weight: bold;}
+        .isi-kalkan-btn:hover:not(:disabled) { box-shadow: 0 0 10px rgba(249, 115, 22, 0.5); }
+        .isi-kalkan-btn:disabled { background: #161b22; color: #6e7681; border-color: #30363d; cursor: not-allowed; }
+        .isi-kalkan-etiket { display: block; margin-top: 5px; padding: 6px; background: rgba(249, 115, 22, 0.1); border: 1px solid #f97316; border-radius: 6px; font-size: 11px; font-weight: bold; color: #f97316; text-align: center;}
+
+        .meteor-kalkan-btn { background: linear-gradient(135deg, #0284c7, #0369a1); color: white; border: 1px solid #38bdf8; padding: 8px; border-radius: 6px; cursor: pointer; font-size: 11px; transition: 0.2s; margin-top: 5px; width: 100%; font-weight: bold;}
+        .meteor-kalkan-btn:hover:not(:disabled) { box-shadow: 0 0 10px rgba(56, 189, 248, 0.5); }
+        .meteor-kalkan-btn:disabled { background: #161b22; color: #6e7681; border-color: #30363d; cursor: not-allowed; }
+        .meteor-kalkan-etiket { display: block; margin-top: 5px; padding: 6px; background: rgba(56, 189, 248, 0.1); border: 1px solid #38bdf8; border-radius: 6px; font-size: 11px; font-weight: bold; color: #38bdf8; text-align: center;}
+
         #btn-odullu-reklam { background: linear-gradient(90deg, #166534, #15803d); border: 2px solid #4ade80; margin-top: 20px; }
         #btn-odullu-reklam:hover:not(:disabled) { background: linear-gradient(90deg, #15803d, #16a34a); }
         #btn-odullu-reklam:disabled { background: #21262d; border-color: #30363d; color: #8b949e; }
@@ -111,6 +195,68 @@
         .ses-buton:hover { background-color: #f56565; }
         .ses-buton-aktif { background-color: #8957e5; border: 1px solid #a371f7; }
         .ses-buton-aktif:hover { background-color: #a371f7; }
+
+        /* 3D KARADELİK */
+        #karadelik { 
+            display: none; position: absolute; width: 100px; height: 100px; border-radius: 50%; cursor: crosshair; 
+            background: #000; box-shadow: inset 0 0 15px 5px rgba(0,0,0,1), 0 0 20px 2px rgba(255, 255, 255, 0.8), 0 0 40px 15px rgba(243, 156, 18, 0.6);
+            z-index: 9999; transition: left 4s ease-in-out, top 4s ease-in-out, transform 0.1s;
+        }
+        #karadelik::before {
+            content: ""; position: absolute; top: 50%; left: 50%; width: 240px; height: 240px; margin-top: -120px; margin-left: -120px; border-radius: 50%;
+            background: conic-gradient(from 0deg, transparent 0%, rgba(255,255,255,0.9) 10%, rgba(243,156,18,0.8) 30%, transparent 50%, rgba(255,255,255,0.9) 60%, rgba(243,156,18,0.8) 80%, transparent 100%);
+            box-shadow: 0 0 30px rgba(243, 156, 18, 0.8);
+            transform: rotateX(75deg) rotateY(-15deg); pointer-events: none; animation: gargantuaDonus 8s linear infinite;
+        }
+        #karadelik::after {
+            content: ""; position: absolute; top: -10%; left: -10%; width: 120%; height: 120%; border-radius: 50%;
+            border-top: 8px solid rgba(255, 255, 255, 0.7); border-bottom: 8px solid rgba(243, 156, 18, 0.6); border-left: 8px solid transparent; border-right: 8px solid transparent;
+            filter: blur(4px); pointer-events: none; animation: isikBukulmesi 12s linear infinite;
+        }
+        @keyframes gargantuaDonus { 0% { transform: rotateX(75deg) rotateY(-15deg) rotateZ(0deg); } 100% { transform: rotateX(75deg) rotateY(-15deg) rotateZ(360deg); } }
+        @keyframes isikBukulmesi { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* 3D GÜNEŞ */
+        #gunes {
+            display: none; position: absolute; top: 5%; right: 5%; width: 180px; height: 180px; margin: 0;
+            background: radial-gradient(circle at 30% 30%, #ffffff 0%, #ffe600 20%, #ff8800 60%, #cc2200 100%);
+            border-radius: 50%;
+            box-shadow: inset -20px -20px 40px rgba(200, 0, 0, 0.8), inset 10px 10px 30px rgba(255, 255, 255, 0.8), 0 0 80px 20px rgba(255, 136, 0, 0.9);
+            z-index: 5; pointer-events: none; opacity: 0; 
+            animation: gunesNabiz 4s infinite alternate ease-in-out; transition: opacity 2s ease-in-out;
+        }
+        #gunes::before, #gunes::after {
+            content: ""; position: absolute; top: 50%; left: 50%; width: 100%; height: 100%; border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 150, 0, 0.15) 0%, transparent 70%);
+            border: 2px solid rgba(255, 166, 0, 0.4);
+            transform: translate(-50%, -50%) scale(1);
+            animation: gunesDalgasi 16s infinite ease-out; 
+            pointer-events: none; z-index: -1;
+        }
+        #gunes::after { animation-delay: 8s; }
+        @keyframes gunesDalgasi {
+            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; box-shadow: 0 0 40px 20px rgba(255, 150, 0, 0.6); }
+            100% { transform: translate(-50%, -50%) scale(30); opacity: 0; box-shadow: 0 0 0px 0px rgba(255, 100, 0, 0); }
+        }
+        @keyframes gunesNabiz {
+            0% { transform: scale(1) rotate(0deg); filter: drop-shadow(0 0 40px rgba(255, 94, 0, 0.8)); }
+            100% { transform: scale(1.15) rotate(5deg); filter: drop-shadow(0 0 100px rgba(255, 230, 0, 1)); }
+        }
+
+        /* 3D METEOR */
+        .meteor-cisim {
+            position: absolute;
+            background: radial-gradient(circle at 30% 30%, #9ca3af 0%, #4b5563 50%, #1f2937 100%);
+            border-radius: 50%;
+            box-shadow: inset -4px -4px 8px rgba(0,0,0,0.9), inset 2px 2px 5px rgba(255,255,255,0.3), 0 0 15px 5px rgba(239, 68, 68, 0.6);
+            pointer-events: none;
+            z-index: 40;
+            animation: meteorAtesi 0.5s infinite alternate;
+        }
+        @keyframes meteorAtesi {
+            from { box-shadow: inset -4px -4px 8px rgba(0,0,0,0.9), inset 2px 2px 5px rgba(255,255,255,0.3), 0 0 10px 2px rgba(239, 68, 68, 0.5); }
+            to { box-shadow: inset -4px -4px 8px rgba(0,0,0,0.9), inset 2px 2px 5px rgba(255,255,255,0.3), 0 0 25px 10px rgba(249, 115, 22, 0.9); }
+        }
     </style>
 </head>
 <body>
@@ -123,12 +269,16 @@
 
     <div id="sol-panel">
         <div id="kozmik-ag"></div>
+        <div id="gunes"></div>
+        <div id="karadelik" onclick="karadelikVur()"></div>
+
         <div class="skor-kutusu">
             <h1 id="hucre-sayisi">0</h1>
-            <p>Saniyelik Üretim: <span id="saniyelik-uretim" style="color:#2ea043; font-weight:bold;">0</span></p>
+            <p>Saniyelik Üretim: <span id="saniyelik-uretim" style="color:#4ade80; font-weight:bold;">0</span></p>
             <p>Gerçek Tıklama Gücü: <span id="guncel-tiklama">1</span></p>
-            <p style="color:#d2a8ff; font-weight:bold; margin-top:10px;">Entropi Seviyesi: <span id="guncel-entropi">0</span></p>
+            <p style="color:#d2a8ff; font-weight:bold;">Entropi Seviyesi: <span id="guncel-entropi">0</span></p>
             <p id="sinerji-metni" style="color:#a855f7; font-weight:bold; display:none;">🌌 Ağ Sinerjisi: x<span id="guncel-sinerji">1</span></p>
+            <p id="gunes-metni" style="color:#f97316; font-weight:bold; display:none;">☀️ Güneş Isısı (Kayıp): -<span id="guncel-gunes-somurusu">0</span>x</p>
             <p id="prestij-metni" style="color:#ffb703; font-weight:bold; display:none;">✨ Prestij Çarpanı: x<span id="guncel-prestij">1</span></p>
         </div>
         
@@ -142,10 +292,8 @@
 
         <div class="sahne" id="tiklama-alani">
             <div class="tiklama-kapsayici">
-                <div class="kup">
-                    <div class="yuzey on">🦠</div><div class="yuzey arka">🧬</div>
-                    <div class="yuzey sag">⚡</div><div class="yuzey sol">💧</div>
-                    <div class="yuzey ust">🐟</div><div class="yuzey alt">🦎</div>
+                <div class="kure-modern">
+                    <span id="kure-ikon">🦠</span>
                 </div>
             </div>
         </div>
@@ -193,12 +341,13 @@
             <button class="alt-btn" style="color:#ff7b72; font-weight:bold; border-color:#e63946;" onclick="oyunuSifirla()">🔄 En Baştan Başla</button>
         </div>
         
+        <!-- YENİ GÜNCELLENEN REKLAM ALANI BURADA -->
         <div style="margin-top: 20px; text-align: center; border: 1px dashed #30363d; padding: 10px; border-radius: 8px;">
             <p style="color:#8b949e; font-size:12px; margin-bottom:5px;">Reklam Alanı</p>
             <ins class="adsbygoogle"
                  style="display:inline-block;width:320px;height:90px"
                  data-ad-client="ca-pub-8821638803642284"
-                 data-ad-slot="REKLAM_BIRIMI_KODUNU_BURAYA_YAZ"></ins>
+                 data-ad-slot="7786836693"></ins>
             <script>
                  (adsbygoogle = window.adsbygoogle || []).push({});
             </script>
@@ -210,18 +359,19 @@
             <span class="modal-kapat" onclick="ogreticiyiKapat()">&times;</span>
             <h2 class="modal-baslik">🌌 Hücre Evrimi'ne Hoş Geldin!</h2>
             <div class="ogretici-liste">
-                <strong>👆 1. Tıklama ve Üretim:</strong> Ekrandaki dönen küpe tıklayarak hücre üretmeye başla.<br><br>
+                <strong>👆 1. Tıklama ve Üretim:</strong> Ekrandaki dönen 3 boyutlu hücre küresine tıklayarak hücre üretmeye başla.<br><br>
                 <strong>📈 2. Seviye Atlama:</strong> Hücre ürettikçe sağdaki ilerleme barı dolar.<br><br>
                 <strong>⚡ 3. Geliştirmeler:</strong> Tıklama gücünü ve mutasyon çarpanını satın alarak üretim hızını katlayabilirsin.<br><br>
                 <strong>🪐 4. Gezegenler:</strong> Yeterli hücreye ulaştığında gezegenleri keşfet.<br><br>
                 <strong>🌟 5. Altın Hücreler:</strong> Ekranda beliren parlak altın hücreleri yakala.<br><br>
-                <strong>💥 6. Büyük Patlama:</strong> Oyunda tıkandığında Büyük Patlama yap.
+                <strong>☀️ 6. Güneş Isısı:</strong> Seviye 20'den sonra Güneş belirir ve aldığınız gezegenlerin avantajını sömürerek çarpanınızı düşürür! Gezegenlerine <strong>Isı Kalkanı</strong> alarak onları koruyabilirsin.<br><br>
+                <strong>☄️ 7. Meteor Yağmurları:</strong> Seviye 25'ten sonra başlar. <strong>Meteor Kalkanın</strong> yoksa meteorlar gezegen avantajlarını 5 dakikalığına yarıya düşürür!<br><br>
+                <strong>💥 8. Büyük Patlama:</strong> Oyunda tıkandığında Büyük Patlama yap ve her şeye daha güçlü başla.
             </div>
         </div>
     </div>
 
     <script>
-        // --- TEMEL DEĞİŞKENLER ---
         let hucre = 0; let seviye = 1; let sonrakiSeviyeMaliyeti = 10;
         let otomatikUretimMiktari = 0; let tiklamaGucu = 1; let tiklamaGucuMaliyeti = 50; 
         let uretimCarpani = 1.0; let mutasyonMaliyeti = 200;
@@ -232,89 +382,42 @@
         let kutleCekimAgiAktif = false;
         const kutleCekimMaliyeti = 1000000000; 
 
-        // --- SES MOTORU ---
-        let sesAcik = false; 
-        let audioCtx;
-        const uzayMelodisi = [220, 261.63, 293.66, 329.63, 392.00, 329.63, 293.66, 261.63]; 
-        let melodiIndex = 0;
-        let muzikDongusu;
+        let sesAcik = false; let audioCtx; const uzayMelodisi = [220, 261.63, 293.66, 329.63, 392.00, 329.63, 293.66, 261.63]; let melodiIndex = 0; let muzikDongusu;
 
-        function sesMotorunuBaslat() {
-            if (!audioCtx) { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
-            if (audioCtx.state === 'suspended') { audioCtx.resume(); }
-        }
-
-        function tekNotaCal(frekans, sure) {
-            if (!sesAcik || !audioCtx) return;
-            const oscillator = audioCtx.createOscillator();
-            const gainNode = audioCtx.createGain();
-            oscillator.type = 'triangle'; 
-            oscillator.frequency.setValueAtTime(frekans, audioCtx.currentTime);
-            gainNode.gain.setValueAtTime(0.03, audioCtx.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + sure);
-            oscillator.connect(gainNode);
-            gainNode.connect(audioCtx.destination);
-            oscillator.start();
-            oscillator.stop(audioCtx.currentTime + sure);
-        }
-
-        function arkaPlanMuziginiBaslat() {
-            if (muzikDongusu) clearInterval(muzikDongusu);
-            muzikDongusu = setInterval(() => {
-                if (!sesAcik) return;
-                tekNotaCal(uzayMelodisi[melodiIndex], 0.3);
-                melodiIndex++;
-                if (melodiIndex >= uzayMelodisi.length) melodiIndex = 0; 
-            }, 300);
-        }
-
+        function sesMotorunuBaslat() { if (!audioCtx) { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } if (audioCtx.state === 'suspended') { audioCtx.resume(); } }
+        function tekNotaCal(frekans, sure) { if (!sesAcik || !audioCtx) return; const oscillator = audioCtx.createOscillator(); const gainNode = audioCtx.createGain(); oscillator.type = 'triangle'; oscillator.frequency.setValueAtTime(frekans, audioCtx.currentTime); gainNode.gain.setValueAtTime(0.03, audioCtx.currentTime); gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + sure); oscillator.connect(gainNode); gainNode.connect(audioCtx.destination); oscillator.start(); oscillator.stop(audioCtx.currentTime + sure); }
+        function arkaPlanMuziginiBaslat() { if (muzikDongusu) clearInterval(muzikDongusu); muzikDongusu = setInterval(() => { if (!sesAcik) return; tekNotaCal(uzayMelodisi[melodiIndex], 0.3); melodiIndex++; if (melodiIndex >= uzayMelodisi.length) melodiIndex = 0; }, 300); }
         function arkaPlanMuziginiDurdur() { if (muzikDongusu) clearInterval(muzikDongusu); }
+        function atariSesiUret(frekans, dalgaTipi, sure) { if (!sesAcik || !audioCtx) return; const oscillator = audioCtx.createOscillator(); const gainNode = audioCtx.createGain(); oscillator.type = dalgaTipi; oscillator.frequency.setValueAtTime(frekans, audioCtx.currentTime); gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime); gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + sure); oscillator.connect(gainNode); gainNode.connect(audioCtx.destination); oscillator.start(); oscillator.stop(audioCtx.currentTime + sure); }
+        function anlikSesOynat(tur) { if (!sesAcik) return; sesMotorunuBaslat(); if (tur === "ses-tiklama") { atariSesiUret(400, 'square', 0.1); } else if (tur === "ses-avantaj") { atariSesiUret(800, 'sine', 0.1); setTimeout(() => atariSesiUret(1200, 'sine', 0.2), 100); } else if (tur === "ses-hasar") { atariSesiUret(150, 'sawtooth', 0.4); setTimeout(() => atariSesiUret(100, 'sawtooth', 0.4), 200); } }
+        
+        function oyunuBaslat() { document.getElementById("baslangic-ekrani").style.display = "none"; sesMotorunuBaslat(); sesAcik = true; arkaPlanMuziginiBaslat(); let btnSes = document.getElementById("btn-ses-kontrol"); btnSes.innerHTML = "🔊 Oyunun Sesi Açık (Kapatmak için tıkla)"; btnSes.classList.add("ses-buton-aktif"); }
+        function sesiAcKapat() { sesMotorunuBaslat(); let btnSes = document.getElementById("btn-ses-kontrol"); if (sesAcik) { sesAcik = false; arkaPlanMuziginiDurdur(); btnSes.innerHTML = "🔇 Oyunu Sessizde Oynuyorsun (Sesi Aç)"; btnSes.classList.remove("ses-buton-aktif"); } else { sesAcik = true; arkaPlanMuziginiBaslat(); btnSes.innerHTML = "🔊 Oyunun Sesi Açık (Kapatmak için tıkla)"; btnSes.classList.add("ses-buton-aktif"); } }
 
-        function atariSesiUret(frekans, dalgaTipi, sure) {
-            if (!sesAcik || !audioCtx) return;
-            const oscillator = audioCtx.createOscillator();
-            const gainNode = audioCtx.createGain();
-            oscillator.type = dalgaTipi;
-            oscillator.frequency.setValueAtTime(frekans, audioCtx.currentTime);
-            gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + sure);
-            oscillator.connect(gainNode);
-            gainNode.connect(audioCtx.destination);
-            oscillator.start();
-            oscillator.stop(audioCtx.currentTime + sure);
-        }
-
-        function anlikSesOynat(tur) {
-            if (!sesAcik) return;
-            sesMotorunuBaslat();
-            if (tur === "ses-tiklama") { atariSesiUret(400, 'square', 0.1); } 
-            else if (tur === "ses-avantaj") { atariSesiUret(800, 'sine', 0.1); setTimeout(() => atariSesiUret(1200, 'sine', 0.2), 100); }
-        }
-
-        function oyunuBaslat() {
-            document.getElementById("baslangic-ekrani").style.display = "none";
-            sesMotorunuBaslat(); sesAcik = true; arkaPlanMuziginiBaslat();
-            let btnSes = document.getElementById("btn-ses-kontrol");
-            btnSes.innerHTML = "🔊 Oyunun Sesi Açık (Kapatmak için tıkla)"; btnSes.classList.add("ses-buton-aktif");
-        }
-
-        function sesiAcKapat() {
-            sesMotorunuBaslat();
-            let btnSes = document.getElementById("btn-ses-kontrol");
-            if (sesAcik) {
-                sesAcik = false; arkaPlanMuziginiDurdur();
-                btnSes.innerHTML = "🔇 Oyunu Sessizde Oynuyorsun (Sesi Aç)"; btnSes.classList.remove("ses-buton-aktif");
-            } else {
-                sesAcik = true; arkaPlanMuziginiBaslat();
-                btnSes.innerHTML = "🔊 Oyunun Sesi Açık (Kapatmak için tıkla)"; btnSes.classList.add("ses-buton-aktif");
-            }
-        }
-
-        // --- VERİTABANI VE MEKANİKLER ---
         const asamalar = [ { kilitSeviyesi: 5, isim: "💧 Su Damlacığı", saniyelikKarti: 1, acildimi: false }, { kilitSeviyesi: 10, isim: "🧬 Protein Sentezi", saniyelikKarti: 3, acildimi: false }, { kilitSeviyesi: 15, isim: "🦠 Zar Yapısı", saniyelikKarti: 10, acildimi: false }, { kilitSeviyesi: 20, isim: "⚡ Mitokondri", saniyelikKarti: 30, acildimi: false }, { kilitSeviyesi: 25, isim: "🧬 DNA Kopyalanması", saniyelikKarti: 80, acildimi: false }, { kilitSeviyesi: 30, isim: "🐟 Çok Hücreli Yaşam", saniyelikKarti: 250, acildimi: false }, { kilitSeviyesi: 35, isim: "🌿 Fotosentez", saniyelikKarti: 750, acildimi: false }, { kilitSeviyesi: 40, isim: "🦎 Sudan Çıkış", saniyelikKarti: 2000, acildimi: false }, { kilitSeviyesi: 45, isim: "🥚 Yumurta Evresi", saniyelikKarti: 6000, acildimi: false }, { kilitSeviyesi: 50, isim: "🦖 Dinozor Çağı", saniyelikKarti: 15000, acildimi: false } ];
-        const gezegenler = [ { isim: "☄️ Marduk Gezegeni", maliyet: 5000, aciklama: "%10 ihtimalle x10 Kritik Tıklama (Patlama) verir.", satinAlindi: false }, { isim: "🌑 Ay Üssü", maliyet: 15000, aciklama: "Tıklama gücünü anında x5'e katlar.", satinAlindi: false }, { isim: "🔴 Kızıl Gezegen (Mars)", maliyet: 500000, aciklama: "Altın Hücre çok daha sık ortaya çıkar.", satinAlindi: false }, { isim: "🪐 Jüpiter Fırtınası", maliyet: 10000000, aciklama: "Tüm otomatik üretimi kalıcı olarak x3'e katlar.", satinAlindi: false }, { isim: "🪐 Satürn Halkaları", maliyet: 250000000, aciklama: "Seviye atlama maliyetlerini ucuzlatır (Oyun hızlanır).", satinAlindi: false } ];
+        
+        const gezegenler = [ 
+            { isim: "☄️ Marduk Gezegeni", maliyet: 5000, isiKalkanMaliyeti: 7000, meteorKalkanMaliyeti: 12000, aciklama: "%10 ihtimalle x10 Kritik Tıklama (Patlama) verir.", satinAlindi: false, isiKalkanSatinAlindi: false, meteorKalkanSatinAlindi: false, hasarBitisZamani: 0 }, 
+            { isim: "🌑 Ay Üssü", maliyet: 15000, isiKalkanMaliyeti: 17000, meteorKalkanMaliyeti: 25000, aciklama: "Tıklama gücünü anında x5'e katlar.", satinAlindi: false, isiKalkanSatinAlindi: false, meteorKalkanSatinAlindi: false, hasarBitisZamani: 0 }, 
+            { isim: "🔴 Kızıl Gezegen (Mars)", maliyet: 500000, isiKalkanMaliyeti: 700000, meteorKalkanMaliyeti: 1200000, aciklama: "Altın Hücre çok daha sık ortaya çıkar.", satinAlindi: false, isiKalkanSatinAlindi: false, meteorKalkanSatinAlindi: false, hasarBitisZamani: 0 }, 
+            { isim: "🪐 Jüpiter Fırtınası", maliyet: 10000000, isiKalkanMaliyeti: 17000000, meteorKalkanMaliyeti: 25000000, aciklama: "Tüm otomatik üretimi kalıcı olarak x3'e katlar.", satinAlindi: false, isiKalkanSatinAlindi: false, meteorKalkanSatinAlindi: false, hasarBitisZamani: 0 }, 
+            { isim: "🪐 Satürn Halkaları", maliyet: 250000000, isiKalkanMaliyeti: 270000000, meteorKalkanMaliyeti: 350000000, aciklama: "Seviye atlama maliyetlerini ucuzlatır (Oyun hızlanır).", satinAlindi: false, isiKalkanSatinAlindi: false, meteorKalkanSatinAlindi: false, hasarBitisZamani: 0 } 
+        ];
+
+        function gunesEtkisiniHesapla() {
+            let somuru = 0;
+            if (seviye >= 20) {
+                if (gezegenler[0].satinAlindi && !gezegenler[0].isiKalkanSatinAlindi) somuru += 0.2;
+                if (gezegenler[1].satinAlindi && !gezegenler[1].isiKalkanSatinAlindi) somuru += 0.4;
+                if (gezegenler[2].satinAlindi && !gezegenler[2].isiKalkanSatinAlindi) somuru += 0.8;
+                if (gezegenler[3].satinAlindi && !gezegenler[3].isiKalkanSatinAlindi) somuru += 1.6;
+                if (gezegenler[4].satinAlindi && !gezegenler[4].isiKalkanSatinAlindi) somuru += 3.2;
+            }
+            return parseFloat(somuru.toFixed(1));
+        }
 
         function ekraniGuncelle() {
+            let suAn = Date.now();
             document.getElementById("hucre-sayisi").innerText = Math.floor(hucre);
             let sinerjiCarpani = 1;
             if (kutleCekimAgiAktif) {
@@ -326,11 +429,33 @@
                 btnKutle.innerHTML = "✨ Kozmik Ağ Aktif ✨"; btnKutle.style.background = "#166534"; btnKutle.disabled = true;
             } else { document.getElementById("btn-kutlecekim").disabled = (hucre < kutleCekimMaliyeti); }
 
-            let jupiterCarpani = gezegenler[3].satinAlindi ? 3 : 1;
-            let toplamUretim = otomatikUretimMiktari * uretimCarpani * prestijCarpani * jupiterCarpani * sinerjiCarpani;
+            let jupHasarli = gezegenler[3].hasarBitisZamani > suAn;
+            let jupiterCarpani = gezegenler[3].satinAlindi ? (jupHasarli ? 1.5 : 3) : 1;
+            
+            let gunesSomurusu = gunesEtkisiniHesapla();
+            
+            let toplamUretimCarpani = (uretimCarpani * prestijCarpani * jupiterCarpani * sinerjiCarpani);
+            let nihaiUretimCarpani = Math.max(0, toplamUretimCarpani - gunesSomurusu); 
+            
+            let toplamUretim = otomatikUretimMiktari * nihaiUretimCarpani;
             document.getElementById("saniyelik-uretim").innerText = toplamUretim.toFixed(1); 
             
-            let ayCarpani = gezegenler[1].satinAlindi ? 5 : 1;
+            if (seviye >= 20) {
+                document.getElementById("gunes-metni").style.display = "block";
+                document.getElementById("guncel-gunes-somurusu").innerText = gunesSomurusu;
+                let gunesObje = document.getElementById("gunes"); 
+                gunesObje.style.display = "block";
+                gunesObje.style.opacity = 1; 
+            } else {
+                document.getElementById("gunes-metni").style.display = "none";
+                let gunesObje = document.getElementById("gunes"); 
+                gunesObje.style.display = "none";
+                gunesObje.style.opacity = 0;
+            }
+            
+            let ayHasarli = gezegenler[1].hasarBitisZamani > suAn;
+            let ayCarpani = gezegenler[1].satinAlindi ? (ayHasarli ? 2.5 : 5) : 1;
+            
             document.getElementById("guncel-tiklama").innerText = tiklamaGucu * ayCarpani;
             document.getElementById("seviye-sayisi").innerText = seviye;
             document.getElementById("seviye-maliyeti").innerText = sonrakiSeviyeMaliyeti;
@@ -346,35 +471,128 @@
 
             if (seviye >= 50 || prestijCarpani > 1) document.getElementById("btn-prestij").style.display = "flex"; else document.getElementById("btn-prestij").style.display = "none";
             if (prestijCarpani > 1) { document.getElementById("prestij-metni").style.display = "block"; document.getElementById("guncel-prestij").innerText = prestijCarpani; }
-            gezegenArayuzunuGuncelle(); 
         }
 
         function kutleCekimAgiKur() { if (hucre >= kutleCekimMaliyeti && !kutleCekimAgiAktif) { hucre -= kutleCekimMaliyeti; kutleCekimAgiAktif = true; anlikSesOynat("ses-avantaj"); ekraniGuncelle(); baslatHareketDongusu(); } }
 
         function gezegenArayuzunuGuncelle() {
             let html = "";
+            let suAn = Date.now();
+            
             gezegenler.forEach((g, index) => {
                 let durumClass = g.satinAlindi ? "gezegen-satin-alindi" : "";
                 let disabled = (hucre < g.maliyet || g.satinAlindi) ? "disabled" : "";
                 let etiketMetni = g.satinAlindi ? "Keşfedildi 🚩" : `${g.maliyet.toLocaleString()} Hücre`;
-                html += `<button class="gezegen-btn ${durumClass}" ${disabled} onclick="gezegenAl(${index})"><strong style="font-size:15px;">${g.isim}</strong><br><small style="color:#cbd5e1;">${g.aciklama}</small><br><span class="gezegen-etiket">${etiketMetni}</span></button>`;
+                
+                let hasarEtiketi = "";
+                if (g.satinAlindi && g.hasarBitisZamani > suAn) {
+                    let kalanSn = Math.ceil((g.hasarBitisZamani - suAn) / 1000);
+                    hasarEtiketi = `<span style="color:#fca5a5; font-size:12px; display:block; margin-top:5px; animation: kalpAtisi 1s infinite alternate;">⚠️ Hasarlı (${kalanSn}s) - Avantaj %50 Düştü</span>`;
+                    durumClass += " gezegen-hasarli";
+                }
+                
+                let isiKalkanHtml = "";
+                if (g.satinAlindi && seviye >= 20) {
+                    if (!g.isiKalkanSatinAlindi) {
+                        let kDisabled = (hucre < g.isiKalkanMaliyeti) ? "disabled" : "";
+                        isiKalkanHtml = `<button class="isi-kalkan-btn" ${kDisabled} onclick="isiKalkaniAl(${index})">☀️ Isı Kalkanı Al (${g.isiKalkanMaliyeti.toLocaleString()})</button>`;
+                    } else {
+                        isiKalkanHtml = `<span class="isi-kalkan-etiket">☀️ Isı Kalkanı Aktif</span>`;
+                    }
+                }
+
+                let meteorKalkanHtml = "";
+                if (g.satinAlindi && seviye >= 25) {
+                    if (!g.meteorKalkanSatinAlindi) {
+                        let kDisabled = (hucre < g.meteorKalkanMaliyeti) ? "disabled" : "";
+                        meteorKalkanHtml = `<button class="meteor-kalkan-btn" ${kDisabled} onclick="meteorKalkaniAl(${index})">☄️ Meteor Kalkanı Al (${g.meteorKalkanMaliyeti.toLocaleString()})</button>`;
+                    } else {
+                        meteorKalkanHtml = `<span class="meteor-kalkan-etiket">☄️ Meteor Kalkanı Aktif</span>`;
+                    }
+                }
+
+                html += `<div style="margin-top: 10px; display:flex; flex-direction:column;">
+                            <button class="gezegen-btn ${durumClass}" ${disabled} onclick="gezegenAl(${index})" style="margin-top:0;">
+                                <strong style="font-size:15px;">${g.isim}</strong><br>
+                                <small style="color:#cbd5e1;">${g.aciklama}</small><br>
+                                <span class="gezegen-etiket">${etiketMetni}</span>
+                                ${hasarEtiketi}
+                            </button>
+                            ${isiKalkanHtml}
+                            ${meteorKalkanHtml}
+                         </div>`;
+                
                 document.getElementById("yorunge-" + index).style.display = g.satinAlindi ? "block" : "none";
+                
+                let kure = document.querySelector("#yorunge-" + index + " .gezegen-kure");
+                if (kure) {
+                    let boxshadows = [];
+                    let border = "1px solid rgba(255,255,255,0.1)";
+
+                    if (g.isiKalkanSatinAlindi) { boxshadows.push("0 0 15px rgba(249, 115, 22, 0.8)"); border = "2px solid #f97316"; }
+                    if (g.meteorKalkanSatinAlindi) { boxshadows.push("0 0 20px rgba(56, 189, 248, 0.8)"); border = g.isiKalkanSatinAlindi ? "2px dashed #38bdf8" : "2px solid #38bdf8"; }
+                    
+                    if (g.hasarBitisZamani > suAn) {
+                        boxshadows.push("0 0 25px rgba(239, 68, 68, 0.8)");
+                        border = "2px solid #ef4444";
+                    }
+
+                    if (boxshadows.length > 0) {
+                        kure.style.boxShadow = "inset -15px -15px 25px rgba(0,0,0,0.9), " + boxshadows.join(", ");
+                        kure.style.border = border;
+                    } else {
+                        kure.style.border = "1px solid rgba(255,255,255,0.1)";
+                        kure.style.boxShadow = "inset -15px -15px 25px rgba(0,0,0,0.9), inset 5px 5px 15px rgba(255,255,255,0.4), 0 0 15px rgba(255,255,255,0.2)";
+                    }
+                }
             });
             document.getElementById("gezegenler-alani").innerHTML = html;
         }
 
-        function gezegenAl(index) { let secilenGezegen = gezegenler[index]; if (hucre >= secilenGezegen.maliyet && !secilenGezegen.satinAlindi) { hucre -= secilenGezegen.maliyet; secilenGezegen.satinAlindi = true; anlikSesOynat("ses-avantaj"); ekraniGuncelle(); } }
+        setInterval(gezegenArayuzunuGuncelle, 1000);
+
+        function gezegenAl(index) { let secilenGezegen = gezegenler[index]; if (hucre >= secilenGezegen.maliyet && !secilenGezegen.satinAlindi) { hucre -= secilenGezegen.maliyet; secilenGezegen.satinAlindi = true; anlikSesOynat("ses-avantaj"); ekraniGuncelle(); gezegenArayuzunuGuncelle(); } }
+        
+        function isiKalkaniAl(index) { 
+            let secilenGezegen = gezegenler[index]; 
+            if (hucre >= secilenGezegen.isiKalkanMaliyeti && !secilenGezegen.isiKalkanSatinAlindi) { 
+                hucre -= secilenGezegen.isiKalkanMaliyeti; secilenGezegen.isiKalkanSatinAlindi = true; anlikSesOynat("ses-avantaj"); ekraniGuncelle(); gezegenArayuzunuGuncelle();
+            } 
+        }
+
+        function meteorKalkaniAl(index) { 
+            let secilenGezegen = gezegenler[index]; 
+            if (hucre >= secilenGezegen.meteorKalkanMaliyeti && !secilenGezegen.meteorKalkanSatinAlindi) { 
+                hucre -= secilenGezegen.meteorKalkanMaliyeti; secilenGezegen.meteorKalkanSatinAlindi = true; anlikSesOynat("ses-avantaj"); ekraniGuncelle(); gezegenArayuzunuGuncelle();
+            } 
+        }
 
         document.getElementById("tiklama-alani").addEventListener("mousedown", function(e) {
-            let ayCarpani = gezegenler[1].satinAlindi ? 5 : 1; let gercekTiklama = tiklamaGucu * ayCarpani; let yaziRengi = "#ff7b72"; let gosterilecekMetin = gercekTiklama;
-            if (gezegenler[0].satinAlindi && Math.random() < 0.10) { gercekTiklama = gercekTiklama * 10; yaziRengi = "#f1c40f"; gosterilecekMetin = gercekTiklama + " (KRİTİK!)"; }
+            let suAn = Date.now();
+            let ayHasarli = gezegenler[1].hasarBitisZamani > suAn;
+            let ayCarpani = gezegenler[1].satinAlindi ? (ayHasarli ? 2.5 : 5) : 1;
+            let gercekTiklama = tiklamaGucu * ayCarpani; 
+            let yaziRengi = "#ff7b72"; let gosterilecekMetin = gercekTiklama;
+            
+            if (gezegenler[0].satinAlindi) {
+                let mardukHasarli = gezegenler[0].hasarBitisZamani > suAn;
+                let mardukSansi = mardukHasarli ? 0.05 : 0.10;
+                let mardukKat = mardukHasarli ? 5 : 10;
+                
+                if (Math.random() < mardukSansi) { 
+                    gercekTiklama = gercekTiklama * mardukKat; 
+                    yaziRengi = "#f1c40f"; 
+                    gosterilecekMetin = gercekTiklama + " (KRİTİK!)"; 
+                }
+            }
+            
+            document.getElementById("kure-ikon").innerText = canliIkonlari[Math.floor(Math.random() * canliIkonlari.length)];
             hucre += gercekTiklama; anlikSesOynat("ses-tiklama"); ekraniGuncelle(); yuzenYaziOlustur(e.clientX, e.clientY, gosterilecekMetin, yaziRengi);
         });
 
         function tiklamaGucunuArtir() { if (hucre >= tiklamaGucuMaliyeti) { hucre -= tiklamaGucuMaliyeti; tiklamaGucu += 1; tiklamaGucuMaliyeti = Math.floor(tiklamaGucuMaliyeti * 2.5); anlikSesOynat("ses-avantaj"); ekraniGuncelle(); } }
         function mutasyonGelistir() { if (hucre >= mutasyonMaliyeti) { hucre -= mutasyonMaliyeti; uretimCarpani *= 1.2; mutasyonMaliyeti = Math.floor(mutasyonMaliyeti * 3); anlikSesOynat("ses-avantaj"); ekraniGuncelle(); } }
-        
-        function yuzenYaziOlustur(x, y, metin, renk) { const yazi = document.createElement("div"); yazi.classList.add("yuzen-yazi"); yazi.innerText = "+" + metin; yazi.style.color = renk; yazi.style.textShadow = `0 0 10px ${renk}`; yazi.style.left = (x - 20 + Math.random() * 40) + "px"; yazi.style.top = (y - 30) + "px"; document.getElementById("sol-panel").appendChild(yazi); setTimeout(() => { yazi.remove(); }, 1000); }
+        function yuzenYaziOlustur(x, y, metin, renk) { const yazi = document.createElement("div"); yazi.classList.add("yuzen-yazi"); yazi.innerText = metin.toString().includes("+") || metin.toString().includes("Kalkan") || metin.toString().includes("DİKKAT") ? metin : "+" + metin; yazi.style.color = renk; yazi.style.textShadow = `0 0 10px ${renk}`; yazi.style.left = (x - 20 + Math.random() * 40) + "px"; yazi.style.top = (y - 30) + "px"; document.getElementById("sol-panel").appendChild(yazi); setTimeout(() => { yazi.remove(); }, 1500); }
 
         function asamaKontrolEt() {
             for (let i = 0; i < asamalar.length; i++) {
@@ -409,7 +627,9 @@
         baslatHareketDongusu(); 
 
         function altinHucreDongusu() {
-            let beklemeSuresi = gezegenler[2].satinAlindi ? 8000 : 15000;
+            let marsHasarli = gezegenler[2].hasarBitisZamani > Date.now();
+            let beklemeSuresi = gezegenler[2].satinAlindi ? (marsHasarli ? 11500 : 8000) : 15000;
+            
             setTimeout(() => {
                 if (seviye >= 20 && Math.random() < 0.4) { 
                     const pnl = document.getElementById("sol-panel"); const altin = document.createElement("div"); altin.classList.add("altin-hucre"); altin.innerText = "🌟"; altin.style.left = (Math.random() * (pnl.clientWidth - 100)) + "px"; altin.style.top = (pnl.clientHeight - 100) + "px"; 
@@ -421,6 +641,58 @@
         }
         altinHucreDongusu(); 
 
+        function meteorYagmuruDongusu() {
+            let beklemeSuresi = Math.random() * 20000 + 10000; 
+            
+            setTimeout(() => {
+                if (seviye >= 25) {
+                    let pnl = document.getElementById("sol-panel");
+                    
+                    let cap = Math.floor(Math.random() * 16) + 5; 
+                    
+                    let meteor = document.createElement("div");
+                    meteor.classList.add("meteor-cisim");
+                    meteor.style.width = cap + "px";
+                    meteor.style.height = cap + "px";
+                    meteor.style.top = "-50px";
+                    meteor.style.left = (Math.random() * pnl.clientWidth) + "px";
+                    pnl.appendChild(meteor);
+
+                    let hedefX = Math.random() * pnl.clientWidth;
+                    let hedefY = pnl.clientHeight + 100;
+                    
+                    let anim = meteor.animate([
+                        { transform: `translate(0px, 0px)` },
+                        { transform: `translate(${hedefX - parseFloat(meteor.style.left)}px, ${hedefY}px)` }
+                    ], { duration: 3000, easing: 'linear' });
+
+                    anim.onfinish = () => {
+                        meteor.remove();
+                        
+                        let isabetSansi = 0.4; 
+                        let alinanGezegenler = gezegenler.filter(g => g.satinAlindi);
+                        
+                        if (Math.random() < isabetSansi && alinanGezegenler.length > 0) {
+                            let hedefIndexGezegen = Math.floor(Math.random() * alinanGezegenler.length);
+                            let hedef = alinanGezegenler[hedefIndexGezegen];
+                            let gercekIndex = gezegenler.indexOf(hedef); 
+
+                            if (hedef.meteorKalkanSatinAlindi) {
+                                yuzenYaziOlustur(pnl.clientWidth/2, 120, `🛡️ Meteor Kalkanı Koruması! (${cap}mm Engellendi)`, "#38bdf8");
+                            } else {
+                                gezegenler[gercekIndex].hasarBitisZamani = Date.now() + 300000; 
+                                yuzenYaziOlustur(pnl.clientWidth/2, 120, `⚠️ DİKKAT! ${hedef.isim}'ne ${cap}mm Meteor Çarptı!`, "#ef4444");
+                                anlikSesOynat("ses-hasar");
+                                gezegenArayuzunuGuncelle();
+                            }
+                        }
+                    };
+                }
+                meteorYagmuruDongusu();
+            }, beklemeSuresi);
+        }
+        meteorYagmuruDongusu();
+
         let reklamIzleniyor = false;
         function odulluReklamIzle() {
             if (reklamIzleniyor) return; let btn = document.getElementById("btn-odullu-reklam"); reklamIzleniyor = true; btn.disabled = true; btn.innerHTML = `<span>⏳ Reklam Yükleniyor...</span>`;
@@ -428,8 +700,14 @@
         }
 
         function oduluVer() {
-            let jupiter = gezegenler[3].satinAlindi ? 3 : 1; let sinerji = kutleCekimAgiAktif ? (gezegenler.filter(g => g.satinAlindi).length > 0 ? Math.pow(2, gezegenler.filter(g => g.satinAlindi).length) : 1) : 1;
-            let saniyelikUretim = otomatikUretimMiktari * uretimCarpani * prestijCarpani * jupiter * sinerji;
+            let jupHasarli = gezegenler[3].hasarBitisZamani > Date.now();
+            let jupiter = gezegenler[3].satinAlindi ? (jupHasarli ? 1.5 : 3) : 1; 
+            
+            let sinerji = kutleCekimAgiAktif ? (gezegenler.filter(g => g.satinAlindi).length > 0 ? Math.pow(2, gezegenler.filter(g => g.satinAlindi).length) : 1) : 1;
+            let gunesSomurusu = gunesEtkisiniHesapla();
+            let nihaiUretimCarpani = Math.max(0, (uretimCarpani * prestijCarpani * jupiter * sinerji) - gunesSomurusu);
+            
+            let saniyelikUretim = otomatikUretimMiktari * nihaiUretimCarpani;
             let odul = Math.floor(saniyelikUretim * 100); if (odul < 500) odul = 500; 
             hucre += odul; ekraniGuncelle(); anlikSesOynat("ses-avantaj"); alert(`Tebrikler! Reklamı izlediğin için ${odul.toLocaleString()} Hücre kazandın!`);
             butonuSifirla(document.getElementById("btn-odullu-reklam")); kaydet();
@@ -441,14 +719,18 @@
             if(confirm("Tüm hücrelerin, gezegenlerin, KÜTLE ÇEKİM AĞIN ve geliştirmelerin sıfırlanacak! Kalıcı olarak x5 Üretim Çarpanı kazanacaksın. Emin misin?")) {
                 prestijCarpani += 5; hucre = 0; seviye = 1; sonrakiSeviyeMaliyeti = 10; otomatikUretimMiktari = 0; tiklamaGucu = 1; tiklamaGucuMaliyeti = 50; uretimCarpani = 1.0; mutasyonMaliyeti = 200; entropiSeviyesi = 0; kutleCekimAgiAktif = false;
                 document.getElementById("kozmik-ag").style.display = "none"; document.getElementById("sinerji-metni").style.display = "none"; let btnKutle = document.getElementById("btn-kutlecekim"); btnKutle.innerHTML = `<span>🌌 Kütle Çekim Ağını Kur</span><span style="background:rgba(0,0,0,0.5); padding:4px 8px; border-radius:5px;">1 Milyar Hücre</span>`; btnKutle.style.background = "";
-                asamalar.forEach(a => a.acildimi = false); document.getElementById("asamalar-alani").innerHTML = ""; gezegenler.forEach(g => g.satinAlindi = false); document.querySelectorAll('.serbest-canli').forEach(e => e.remove()); serbestCanlilarListesi = [];
-                kaydet(); ekraniGuncelle(); baslatHareketDongusu(); alert("Büyük Patlama Gerçekleşti! Evren yeniden kuruluyor...");
+                asamalar.forEach(a => a.acildimi = false); document.getElementById("asamalar-alani").innerHTML = ""; gezegenler.forEach(g => { g.satinAlindi = false; g.isiKalkanSatinAlindi = false; g.meteorKalkanSatinAlindi = false; g.hasarBitisZamani = 0; }); document.querySelectorAll('.serbest-canli').forEach(e => e.remove()); serbestCanlilarListesi = [];
+                kaydet(); ekraniGuncelle(); gezegenArayuzunuGuncelle(); baslatHareketDongusu(); alert("Büyük Patlama Gerçekleşti! Evren yeniden kuruluyor...");
             }
         }
 
         function kaydet() {
-            sonGirisZamani = Date.now(); let kaydedilenGezegenler = gezegenler.map(g => g.satinAlindi); 
-            const veriler = { hucre, seviye, sonrakiSeviyeMaliyeti, otomatikUretimMiktari, tiklamaGucu, tiklamaGucuMaliyeti, uretimCarpani, mutasyonMaliyeti, entropiSeviyesi, prestijCarpani, sonGirisZamani, kaydedilenGezegenler, kutleCekimAgiAktif };
+            sonGirisZamani = Date.now(); 
+            let kaydedilenGezegenler = gezegenler.map(g => g.satinAlindi); 
+            let kaydedilenIsiKalkanlari = gezegenler.map(g => g.isiKalkanSatinAlindi);
+            let kaydedilenMeteorKalkanlari = gezegenler.map(g => g.meteorKalkanSatinAlindi);
+            let kaydedilenHasarlar = gezegenler.map(g => g.hasarBitisZamani);
+            const veriler = { hucre, seviye, sonrakiSeviyeMaliyeti, otomatikUretimMiktari, tiklamaGucu, tiklamaGucuMaliyeti, uretimCarpani, mutasyonMaliyeti, entropiSeviyesi, prestijCarpani, sonGirisZamani, kaydedilenGezegenler, kaydedilenIsiKalkanlari, kaydedilenMeteorKalkanlari, kaydedilenHasarlar, kutleCekimAgiAktif };
             localStorage.setItem("oyunKaydi", JSON.stringify(veriler));
         }
 
@@ -457,11 +739,11 @@
         function oyunuSifirla() {
             if(confirm("DİKKAT! Tüm emeğin, gezegenlerin ve Büyük Patlama (Prestij) çarpanı dahil HER ŞEY tamamen silinecek. Oyuna sıfırdan başlamak istediğine emin misin?")) {
                 localStorage.removeItem("oyunKaydi"); hucre = 0; seviye = 1; sonrakiSeviyeMaliyeti = 10; otomatikUretimMiktari = 0; tiklamaGucu = 1; tiklamaGucuMaliyeti = 50; uretimCarpani = 1.0; mutasyonMaliyeti = 200; entropiSeviyesi = 0; prestijCarpani = 1; kutleCekimAgiAktif = false;
-                gezegenler.forEach(g => g.satinAlindi = false); asamalar.forEach(a => a.acildimi = false);
+                gezegenler.forEach(g => { g.satinAlindi = false; g.isiKalkanSatinAlindi = false; g.meteorKalkanSatinAlindi = false; g.hasarBitisZamani = 0; }); asamalar.forEach(a => a.acildimi = false);
                 document.getElementById("asamalar-alani").innerHTML = ""; document.getElementById("kozmik-ag").style.display = "none"; document.getElementById("sinerji-metni").style.display = "none";
                 let btnKutle = document.getElementById("btn-kutlecekim"); btnKutle.innerHTML = `<span>🌌 Kütle Çekim Ağını Kur</span><span style="background:rgba(0,0,0,0.5); padding:4px 8px; border-radius:5px;">1 Milyar Hücre</span>`; btnKutle.style.background = "";
                 document.querySelectorAll('.serbest-canli').forEach(e => e.remove()); serbestCanlilarListesi = [];
-                ekraniGuncelle(); baslatHareketDongusu(); alert("Oyun tamamen sıfırlandı! Her şeye en baştan başlıyorsun.");
+                ekraniGuncelle(); gezegenArayuzunuGuncelle(); baslatHareketDongusu(); alert("Oyun tamamen sıfırlandı! Her şeye en baştan başlıyorsun.");
             }
         }
 
@@ -470,12 +752,28 @@
             if(kayit) {
                 let veriler = JSON.parse(kayit); hucre = veriler.hucre || 0; seviye = veriler.seviye || 1; sonrakiSeviyeMaliyeti = veriler.sonrakiSeviyeMaliyeti || 10; otomatikUretimMiktari = veriler.otomatikUretimMiktari || 0; tiklamaGucu = veriler.tiklamaGucu || 1; tiklamaGucuMaliyeti = veriler.tiklamaGucuMaliyeti || 50; uretimCarpani = veriler.uretimCarpani || 1.0; mutasyonMaliyeti = veriler.mutasyonMaliyeti || 200; entropiSeviyesi = veriler.entropiSeviyesi || 0; prestijCarpani = veriler.prestijCarpani || 1; kutleCekimAgiAktif = veriler.kutleCekimAgiAktif || false;
                 if(veriler.kaydedilenGezegenler) { veriler.kaydedilenGezegenler.forEach((durum, index) => { if(gezegenler[index]) gezegenler[index].satinAlindi = durum; }); }
+                
+                if(veriler.kaydedilenKalkanlar && !veriler.kaydedilenIsiKalkanlari) { veriler.kaydedilenKalkanlar.forEach((durum, index) => { if(gezegenler[index]) gezegenler[index].isiKalkanSatinAlindi = durum; }); }
+                else if(veriler.kaydedilenIsiKalkanlari) { veriler.kaydedilenIsiKalkanlari.forEach((durum, index) => { if(gezegenler[index]) gezegenler[index].isiKalkanSatinAlindi = durum; }); }
+                
+                if(veriler.kaydedilenMeteorKalkanlari) { veriler.kaydedilenMeteorKalkanlari.forEach((durum, index) => { if(gezegenler[index]) gezegenler[index].meteorKalkanSatinAlindi = durum; }); }
+                
+                if(veriler.kaydedilenHasarlar) { veriler.kaydedilenHasarlar.forEach((durum, index) => { if(gezegenler[index]) gezegenler[index].hasarBitisZamani = durum || 0; }); }
+                
                 document.getElementById("asamalar-alani").innerHTML = ""; 
                 asamalar.forEach(a => { if (seviye >= a.kilitSeviyesi) { a.acildimi = true; let asamaHtml = `<div class="asama-kutusu" style="display:block;"><strong>${a.isim}</strong><br><small>Temel Güç: +${asama.saniyelikKarti}</small></div>`; document.getElementById("asamalar-alani").innerHTML = asamaHtml + document.getElementById("asamalar-alani").innerHTML; } });
                 for(let i=0; i<entropiSeviyesi; i++) { canliSerbestBirak(); }
                 if(veriler.sonGirisZamani && otomatikUretimMiktari > 0) {
                     let gecenSaniye = (Date.now() - veriler.sonGirisZamani) / 1000;
-                    if(gecenSaniye > 60) { let jupiterCarpani = gezegenler[3].satinAlindi ? 3 : 1; let sinerji = 1; if(kutleCekimAgiAktif) { let pc = gezegenler.filter(g => g.satinAlindi).length; if(pc > 0) sinerji = Math.pow(2, pc); } let offlineKazanc = gecenSaniye * (otomatikUretimMiktari * uretimCarpani * prestijCarpani * jupiterCarpani * sinerji); hucre += offlineKazanc; alert(`Hoş geldin! Yokluğunda ${Math.floor(offlineKazanc).toLocaleString()} hücre üretildi!`); }
+                    if(gecenSaniye > 60) { 
+                        let jupHasarli = gezegenler[3].hasarBitisZamani > Date.now();
+                        let jupiterCarpani = gezegenler[3].satinAlindi ? (jupHasarli ? 1.5 : 3) : 1; 
+                        let sinerji = 1; if(kutleCekimAgiAktif) { let pc = gezegenler.filter(g => g.satinAlindi).length; if(pc > 0) sinerji = Math.pow(2, pc); } 
+                        let gunesSomurusu = gunesEtkisiniHesapla();
+                        let nihaiUretimCarpani = Math.max(0, (uretimCarpani * prestijCarpani * jupiterCarpani * sinerji) - gunesSomurusu);
+                        let offlineKazanc = gecenSaniye * (otomatikUretimMiktari * nihaiUretimCarpani); 
+                        if(offlineKazanc > 0) { hucre += offlineKazanc; alert(`Hoş geldin! Yokluğunda ${Math.floor(offlineKazanc).toLocaleString()} hücre üretildi!`); }
+                    }
                 }
             }
         }
@@ -483,12 +781,60 @@
         function ogreticiyiAc() { document.getElementById("ogretici-modal").style.display = "flex"; }
         function ogreticiyiKapat() { document.getElementById("ogretici-modal").style.display = "none"; }
 
+        let karadelikAktif = false; let karadelikBaslangicCani = 40; let karadelikCani = 0; let emilenHucre = 0; let karadelikHareketSayaci = 0; 
+
         setInterval(function() {
-            let jupiterCarpani = gezegenler[3].satinAlindi ? 3 : 1; let sinerjiCarpani = 1;
+            if (!karadelikAktif && Math.random() < 0.003 && seviye >= 5) { 
+                karadelikAktif = true; karadelikCani = karadelikBaslangicCani; emilenHucre = 0; karadelikHareketSayaci = 0;
+                let kdObje = document.getElementById("karadelik"); kdObje.style.display = "block";
+                let pnl = document.getElementById("sol-panel");
+                kdObje.style.top = (Math.random() * (pnl.clientHeight - 200)) + "px"; kdObje.style.left = (Math.random() * (pnl.clientWidth - 200)) + "px"; kdObje.style.transform = "scale(1)";
+            }
+
+            if (karadelikAktif) {
+                let kdObje = document.getElementById("karadelik");
+                karadelikHareketSayaci++;
+                if (karadelikHareketSayaci >= 4) {
+                    karadelikHareketSayaci = 0; let pnl = document.getElementById("sol-panel");
+                    kdObje.style.top = (Math.random() * (pnl.clientHeight - 200)) + "px"; kdObje.style.left = (Math.random() * (pnl.clientWidth - 200)) + "px";
+                }
+                if (hucre > 0) {
+                    let kayip = Math.floor(hucre * 0.05) + 1; if (kayip > hucre) kayip = hucre; 
+                    hucre -= kayip; emilenHucre += kayip; ekraniGuncelle();
+                }
+            }
+        }, 1000);
+
+        function karadelikVur() {
+            if (!karadelikAktif) return;
+            karadelikCani--; anlikSesOynat("ses-tiklama");
+            let kdObje = document.getElementById("karadelik"); let yeniBoyut = 0.35 + (0.65 * (karadelikCani / karadelikBaslangicCani)); kdObje.style.transform = "scale(" + yeniBoyut + ")";
+
+            if (karadelikCani <= 0) {
+                karadelikAktif = false; kdObje.style.display = "none";
+                let kazanilanOdul = emilenHucre * 2; hucre += kazanilanOdul; 
+                anlikSesOynat("ses-avantaj"); alert("Tebrikler! Gargantua Karadeliğini yok ettin. Emilen hücrelerin 2 katı olan " + Math.floor(kazanilanOdul).toLocaleString() + " hücre kazandın!"); ekraniGuncelle();
+            }
+        }
+
+        setInterval(function() {
+            let suAn = Date.now();
+            let jupHasarli = gezegenler[3].hasarBitisZamani > suAn;
+            let jupiterCarpani = gezegenler[3].satinAlindi ? (jupHasarli ? 1.5 : 3) : 1; 
+            
+            let sinerjiCarpani = 1;
             if (kutleCekimAgiAktif) { let alinanGezegenSayisi = gezegenler.filter(g => g.satinAlindi).length; if(alinanGezegenSayisi > 0) sinerjiCarpani = Math.pow(2, alinanGezegenSayisi); }
-            let saniyelikKazanc = otomatikUretimMiktari * uretimCarpani * prestijCarpani * jupiterCarpani * sinerjiCarpani;
+            
+            let gunesSomurusu = gunesEtkisiniHesapla();
+            let nihaiUretimCarpani = Math.max(0, (uretimCarpani * prestijCarpani * jupiterCarpani * sinerjiCarpani) - gunesSomurusu);
+            
+            let saniyelikKazanc = otomatikUretimMiktari * nihaiUretimCarpani;
+            
             if (saniyelikKazanc > 0) hucre += saniyelikKazanc / 10; 
-            let zorlukCarpani = gezegenler[4].satinAlindi ? 1.35 : 1.50;
+            
+            let saturnHasarli = gezegenler[4].hasarBitisZamani > suAn;
+            let zorlukCarpani = gezegenler[4].satinAlindi ? (saturnHasarli ? 1.425 : 1.35) : 1.50;
+            
             while (hucre >= sonrakiSeviyeMaliyeti && seviye < 100) {
                 hucre -= sonrakiSeviyeMaliyeti; seviye += 1; sonrakiSeviyeMaliyeti = Math.floor(sonrakiSeviyeMaliyeti * zorlukCarpani); asamaKontrolEt(); 
                 let hedeflenenEntropi = Math.floor(seviye / 7);
@@ -498,7 +844,7 @@
         }, 100); 
 
         setInterval(kaydet, 5000);
-        yukle(); ekraniGuncelle(); baslatHareketDongusu(); 
+        yukle(); ekraniGuncelle(); gezegenArayuzunuGuncelle(); baslatHareketDongusu(); 
     </script>
 </body>
 </html>
