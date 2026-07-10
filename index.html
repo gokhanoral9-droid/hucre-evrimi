@@ -44,9 +44,6 @@
         .skor-kutusu h1 { margin: 0; color: #58a6ff; font-size: 40px; text-shadow: 0 0 20px rgba(88, 166, 255, 0.5);}
         .skor-kutusu p { margin: 0; color: #e1e4e8; font-size: 14px; white-space: nowrap; }
         
-        /* --------------------------------------------------- */
-        /* TAM ŞEFFAFA YAKIN 3D KRİSTAL KÜRE CSS KODLARI       */
-        /* --------------------------------------------------- */
         .sahne { width: 170px; height: 170px; margin: 50px auto; z-index: 30; position: relative; perspective: 1000px; }
         .tiklama-kapsayici { width: 100%; height: 100%; transition: transform 0.1s; cursor: pointer; user-select: none; transform-style: preserve-3d; }
         .tiklama-kapsayici:active { transform: scale(0.9) translateZ(-20px); }
@@ -115,12 +112,14 @@
         .mars-renk { background: radial-gradient(circle at 30% 30%, #f87171 0%, #b91c1c 50%, #450a0a 100%); }
         .jupiter-renk { background: radial-gradient(circle at 30% 30%, #fbbf24 0%, #b45309 50%, #451a03 100%); width: 60px; height: 60px; margin-left: -8px; margin-top: -8px; font-size: 30px;}
         .saturn-renk { background: radial-gradient(circle at 30% 30%, #fde047 0%, #a16207 50%, #422006 100%); width: 80px; height: 80px; margin-left: -18px; margin-top: -18px; font-size: 45px;}
+        .dunya-renk { background: radial-gradient(circle at 30% 30%, #38bdf8 0%, #22c55e 50%, #0f172a 100%); width: 70px; height: 70px; margin-left: -13px; margin-top: -13px; font-size: 35px;}
 
         #yorunge-0 { width: 450px; height: 450px; margin: -225px 0 0 -225px; animation: donDuz 8s linear infinite; } #yorunge-0 .gezegen-obje { animation: donTers 8s linear infinite; }
         #yorunge-1 { width: 600px; height: 600px; margin: -300px 0 0 -300px; animation: donTersYorunge 15s linear infinite; } #yorunge-1 .gezegen-obje { animation: donDuzObje 15s linear infinite; }
         #yorunge-2 { width: 800px; height: 800px; margin: -400px 0 0 -400px; animation: donDuz 25s linear infinite; } #yorunge-2 .gezegen-obje { animation: donTers 25s linear infinite; }
         #yorunge-3 { width: 1050px; height: 1050px; margin: -525px 0 0 -525px; animation: donDuz 40s linear infinite; } #yorunge-3 .gezegen-obje { animation: donTers 40s linear infinite; }
         #yorunge-4 { width: 1350px; height: 1350px; margin: -675px 0 0 -675px; animation: donDuz 60s linear infinite; } #yorunge-4 .gezegen-obje { animation: donTers 60s linear infinite; }
+        #yorunge-5 { width: 1700px; height: 1700px; margin: -850px 0 0 -850px; animation: donTersYorunge 80s linear infinite; } #yorunge-5 .gezegen-obje { animation: donDuzObje 80s linear infinite; }
 
         @keyframes donDuz { from { transform: rotateZ(0deg); } to { transform: rotateZ(360deg); } }
         @keyframes donTersYorunge { from { transform: rotateZ(360deg); } to { transform: rotateZ(0deg); } }
@@ -167,7 +166,6 @@
 
         .gezegen-etiket { display:inline-block; margin-top:8px; padding:4px 8px; background:rgba(0,0,0,0.6); border-radius:5px; font-size:12px; font-weight:bold;}
         
-        /* İKİ FARKLI KALKAN TİPİ İÇİN YENİ CSS */
         .isi-kalkan-btn { background: linear-gradient(135deg, #ea580c, #c2410c); color: white; border: 1px solid #f97316; padding: 8px; border-radius: 6px; cursor: pointer; font-size: 11px; transition: 0.2s; margin-top: 5px; width: 100%; font-weight: bold;}
         .isi-kalkan-btn:hover:not(:disabled) { box-shadow: 0 0 10px rgba(249, 115, 22, 0.5); }
         .isi-kalkan-btn:disabled { background: #161b22; color: #6e7681; border-color: #30363d; cursor: not-allowed; }
@@ -183,7 +181,7 @@
         #btn-odullu-reklam:disabled { background: #21262d; border-color: #30363d; color: #8b949e; }
 
         .modal-arkaplan { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); backdrop-filter: blur(5px); justify-content: center; align-items: center; }
-        .modal-icerik { background-color: #161b22; padding: 30px; border: 1px solid #30363d; border-radius: 15px; width: 80%; max-width: 600px; color: #c9d1d9; box-shadow: 0 0 50px rgba(88, 166, 255, 0.3); }
+        .modal-icerik { background-color: #161b22; padding: 30px; border: 1px solid #30363d; border-radius: 15px; width: 80%; max-width: 600px; max-height: 80vh; overflow-y: auto; color: #c9d1d9; box-shadow: 0 0 50px rgba(88, 166, 255, 0.3); }
         .modal-baslik { color: #58a6ff; margin-top: 0; border-bottom: 1px solid #30363d; padding-bottom: 10px; font-size: 24px; }
         .modal-kapat { color: #8b949e; float: right; font-size: 28px; font-weight: bold; cursor: pointer; transition: color 0.3s; }
         .modal-kapat:hover { color: #ff7b72; }
@@ -195,6 +193,11 @@
         .ses-buton:hover { background-color: #f56565; }
         .ses-buton-aktif { background-color: #8957e5; border: 1px solid #a371f7; }
         .ses-buton-aktif:hover { background-color: #a371f7; }
+
+        /* YENİ: Alt Yasal Link Menüsü */
+        .yasal-menu { display: flex; justify-content: space-between; gap: 10px; margin-top: 20px; border-top: 1px solid #30363d; padding-top: 15px; }
+        .yasal-link { color: #8b949e; font-size: 11px; text-decoration: none; cursor: pointer; transition: 0.2s; background: none; border: none; padding: 0;}
+        .yasal-link:hover { color: #58a6ff; text-decoration: underline; }
 
         /* 3D KARADELİK */
         #karadelik { 
@@ -280,6 +283,7 @@
             <p id="sinerji-metni" style="color:#a855f7; font-weight:bold; display:none;">🌌 Ağ Sinerjisi: x<span id="guncel-sinerji">1</span></p>
             <p id="gunes-metni" style="color:#f97316; font-weight:bold; display:none;">☀️ Güneş Isısı (Kayıp): -<span id="guncel-gunes-somurusu">0</span>x</p>
             <p id="prestij-metni" style="color:#ffb703; font-weight:bold; display:none;">✨ Prestij Çarpanı: x<span id="guncel-prestij">1</span></p>
+            <p id="oksijen-metni" style="color:#06b6d4; font-weight:bold; display:none;">💨 Biriken Oksijen: <span id="guncel-oksijen">0</span></p>
         </div>
         
         <div id="yorungeler-merkezi">
@@ -288,6 +292,7 @@
             <div id="yorunge-2" class="yorunge"><div class="gezegen-obje"><div class="gezegen-kure mars-renk">🔴</div></div></div>
             <div id="yorunge-3" class="yorunge"><div class="gezegen-obje"><div class="gezegen-kure jupiter-renk">🟤</div></div></div>
             <div id="yorunge-4" class="yorunge"><div class="gezegen-obje"><div class="gezegen-kure saturn-renk">🪐</div></div></div>
+            <div id="yorunge-5" class="yorunge"><div class="gezegen-obje"><div class="gezegen-kure dunya-renk">🌍</div></div></div>
         </div>
 
         <div class="sahne" id="tiklama-alani">
@@ -301,7 +306,7 @@
 
     <div id="sag-panel">
         <button id="btn-ses-kontrol" class="bilgi-buton ses-buton" onclick="sesiAcKapat()">🔇 Oyunu Sessizde Oynuyorsun (Sesi Aç)</button>
-        <button class="bilgi-buton" onclick="ogreticiyiAc()">📖 Oyunu Nasıl Oynarım?</button>
+        <button class="bilgi-buton" onclick="modalAc('ogretici-modal')">📖 Oyunu Nasıl Oynarım?</button>
         
         <h2 style="margin-top:0; color:#58a6ff;">Evrim Paneli</h2>
         <p>Mevcut Seviye: <strong id="seviye-sayisi" style="font-size: 20px; color:#38bdf8;">1</strong> / 100</p>
@@ -316,6 +321,18 @@
             <span>📺 Reklam İzle (Anında Büyük Ödül)</span>
             <span style="background:rgba(0,0,0,0.5); padding:4px 8px; border-radius:5px;">Ücretsiz</span>
         </button>
+
+        <div id="oksijen-paneli" style="display:none; margin-top:20px; padding:15px; border: 1px solid #0891b2; border-radius: 8px; background: rgba(8, 145, 178, 0.1);">
+            <h3 style="margin-top:0; color:#06b6d4; border-bottom: 1px solid #0891b2; padding-bottom:5px;">💨 Oksijen Marketi</h3>
+            <p style="font-size:12px; color:#c9d1d9;">Oyunda kaldığın her 15 saniyede Oksijen üretilir.</p>
+            <button class="avantaj-btn" style="background-color: #0891b2; justify-content: center; text-align: center;" onclick="oksijenBozdur()">
+                1 Oksijen Bozdur (+1,000 Hücre)
+            </button>
+            <button class="avantaj-btn" style="background-color: #0e7490; justify-content: center; text-align: center; margin-top:5px;" onclick="tumOksijeniBozdur()">
+                Tümünü Bozdur
+            </button>
+        </div>
+
         <h3 style="margin-top:20px; border-bottom: 1px solid #30363d; padding-bottom:10px; color:#ff7b72;">🔥 Özel Avantajlar</h3>
         <button id="btn-tiklama" class="avantaj-btn" onclick="tiklamaGucunuArtir()">
             <span>👆 Güçlü Tıklama (+1 Güç)</span>
@@ -341,6 +358,13 @@
             <button class="alt-btn" style="color:#ff7b72; font-weight:bold; border-color:#e63946;" onclick="oyunuSifirla()">🔄 En Baştan Başla</button>
         </div>
         
+        <!-- YENİ: Alt Yasal Bilgi Menüsü (AdSense Onayı İçin) -->
+        <div class="yasal-menu">
+            <button class="yasal-link" onclick="modalAc('hikaye-modal')">Oyunun Hikayesi & İletişim</button>
+            <button class="yasal-link" onclick="modalAc('guncelleme-modal')">Sürüm Notları</button>
+            <button class="yasal-link" onclick="modalAc('gizlilik-modal')">Gizlilik Politikası (Privacy)</button>
+        </div>
+        
         <div style="margin-top: 20px; text-align: center; border: 1px dashed #30363d; padding: 10px; border-radius: 8px;">
             <p style="color:#8b949e; font-size:12px; margin-bottom:5px;">Reklam Alanı</p>
             <ins class="adsbygoogle"
@@ -353,9 +377,10 @@
         </div>
     </div>
 
+    <!-- ÖĞRETİCİ MODAL -->
     <div id="ogretici-modal" class="modal-arkaplan">
         <div class="modal-icerik">
-            <span class="modal-kapat" onclick="ogreticiyiKapat()">&times;</span>
+            <span class="modal-kapat" onclick="modalKapat('ogretici-modal')">&times;</span>
             <h2 class="modal-baslik">🌌 Hücre Evrimi'ne Hoş Geldin!</h2>
             <div class="ogretici-liste">
                 <strong>👆 1. Tıklama ve Üretim:</strong> Ekrandaki dönen 3 boyutlu hücre küresine tıklayarak hücre üretmeye başla.<br><br>
@@ -365,12 +390,97 @@
                 <strong>🌟 5. Altın Hücreler:</strong> Ekranda beliren parlak altın hücreleri yakala.<br><br>
                 <strong>☀️ 6. Güneş Isısı:</strong> Seviye 20'den sonra Güneş belirir ve aldığınız gezegenlerin avantajını sömürerek çarpanınızı düşürür! Gezegenlerine <strong>Isı Kalkanı</strong> alarak onları koruyabilirsin.<br><br>
                 <strong>☄️ 7. Meteor Yağmurları:</strong> Seviye 25'ten sonra başlar. <strong>Meteor Kalkanın</strong> yoksa meteorlar gezegen avantajlarını 5 dakikalığına yarıya düşürür!<br><br>
-                <strong>💥 8. Büyük Patlama:</strong> Oyunda tıkandığında Büyük Patlama yap ve her şeye daha güçlü başla.
+                <strong>💥 8. Büyük Patlama:</strong> Oyunda tıkandığında Büyük Patlama yap ve her şeye daha güçlü başla.<br><br>
+                <strong>💨 9. Oksijen Sistemi:</strong> 50. seviyeye ulaştığında açılır. Oyun açık kaldığı sürece oksijen biriktirip anında hücre satın alabilirsin!<br><br>
+                <strong>🌍 10. Dünya Gezegeni:</strong> 50. seviyede Oksijen sistemiyle birlikte açılır ve Oksijen üretimini x2'ye katlar.
+            </div>
+        </div>
+    </div>
+
+    <!-- YENİ: HİKAYE & İLETİŞİM MODAL -->
+    <div id="hikaye-modal" class="modal-arkaplan">
+        <div class="modal-icerik">
+            <span class="modal-kapat" onclick="modalKapat('hikaye-modal')">&times;</span>
+            <h2 class="modal-baslik">📜 Evrenin Hikayesi ve Hakkımızda</h2>
+            <div class="ogretici-liste">
+                <p>Başlangıçta sadece devasa bir karanlık, sessizlik ve sonsuz bir boşluk vardı. Evrenin en derin köşesinde, henüz bir isim bile konmamışken tek bir hücre titreşti. İşte o hücre, tüm yaşamın, gezegenlerin ve galaksilerin mimarı olacaktı. <b>Hücre Evrimi Tycoon</b>, seni bu tek hücreden başlayarak devasa bir evren inşa etme yolculuğuna davet ediyor.</p>
+                <p>Sen geliştikçe evrenin de gelişecek. Su damlacıklarından dinozorlara, Güneş'in kavurucu sıcağından Gargantua Karadeliği'nin amansız çekim kuvvetine kadar kozmosun tüm zorluklarıyla yüzleşeceksin. 50. Seviyeye ulaşıp "Büyük Patlama"yı tetiklediğinde ise evreni yepyeni bir boyuta, Oksijen Çağı'na taşıyacaksın.</p>
+                <h3 style="color:#58a6ff; margin-top:20px;">İletişim ve Hakkımızda</h3>
+                <p>Bu web oyunu, uzay ve evrim temalı bağımsız strateji oyunlarını seven oyuncular için geliştirilmiş ücretsiz bir Idle/Clicker deneyimidir. Oyun içindeki tüm mekanikler, oyuncuya pürüzsüz ve sürükleyici bir deneyim yaşatmak için özel olarak tasarlanmıştır.</p>
+                <p>Oyunla ilgili geri bildirimleriniz, hata bildirimleriniz veya işbirliği teklifleriniz için bizimle iletişime geçebilirsiniz.</p>
+                <p><b>E-Posta:</b> iletisim@hucreevrimi.com <i>(Örnek mail adresidir, kendi mailini yazabilirsin)</i></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- YENİ: GÜNCELLEME NOTLARI MODAL -->
+    <div id="guncelleme-modal" class="modal-arkaplan">
+        <div class="modal-icerik">
+            <span class="modal-kapat" onclick="modalKapat('guncelleme-modal')">&times;</span>
+            <h2 class="modal-baslik">🚀 Sürüm ve Güncelleme Notları</h2>
+            <div class="ogretici-liste">
+                <strong>v1.2 (Güncel Sürüm) - Oksijen Çağı</strong>
+                <ul>
+                    <li>Oyun sonu (End-Game) mekaniği olarak "Oksijen Sistemi" eklendi. (Seviye 50'de açılır).</li>
+                    <li>Oksijen üretimini x2'ye katlayan gizli gezegen "Dünya" markete eklendi.</li>
+                    <li>Büyük Patlama ve En Baştan Başla (Sıfırlama) butonlarındaki görsel ve matematiksel mantık hataları tamamen giderildi.</li>
+                    <li>Google AdSense uyumluluğu için yasal menüler ve alt sayfa modalları entegre edildi.</li>
+                </ul>
+                <hr style="border-color:#30363d; margin:15px 0;">
+                <strong>v1.1 - Kozmik Felaketler</strong>
+                <ul>
+                    <li>Seviye 20 sonrası için "Güneş Isısı" mekaniği eklendi. Isı Kalkanları aktif edildi.</li>
+                    <li>Seviye 25 sonrası için "Meteor Yağmuru" rastgele etkinliği ve Meteor Kalkanı eklendi.</li>
+                    <li>Gargantua Karadeliği mekaniği oyuna entegre edildi. Ekrana tıklayarak yok edilebilir hale getirildi.</li>
+                </ul>
+                <hr style="border-color:#30363d; margin:15px 0;">
+                <strong>v1.0 - Evrenin Doğuşu</strong>
+                <ul>
+                    <li>Oyunun temel 3D tıklama ve UI (Kullanıcı Arayüzü) tasarımları oluşturuldu.</li>
+                    <li>Gezegen yörüngeleri, kütle çekim ağı ve sinerji sistemleri kodlandı.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- YENİ: GİZLİLİK POLİTİKASI MODAL -->
+    <div id="gizlilik-modal" class="modal-arkaplan">
+        <div class="modal-icerik">
+            <span class="modal-kapat" onclick="modalKapat('gizlilik-modal')">&times;</span>
+            <h2 class="modal-baslik">🔒 Gizlilik Politikası (Privacy Policy)</h2>
+            <div class="ogretici-liste">
+                <p><b>Son Güncelleme:</b> 2026</p>
+                <p>Hücre Evrimi Tycoon (bundan böyle "Site" veya "Oyun" olarak anılacaktır) olarak ziyaretçilerimizin ve oyuncularımızın gizliliğine saygı duyuyoruz. Bu Gizlilik Politikası, sitemizi ziyaret ettiğinizde toplanan bilgilerin nasıl kullanıldığını açıklar.</p>
+                
+                <h3 style="color:#58a6ff;">1. Yerel Veri Depolama (Local Storage)</h3>
+                <p>Oyunumuz, ilerlemenizi (hücre sayınız, seviyeniz, aldığınız gezegenler vb.) kaydetmek için tarayıcınızın "Local Storage" (Yerel Depolama) özelliğini kullanır. Bu veriler tamamen sizin kendi cihazınızda tutulur; hiçbir şekilde harici sunucularımıza yüklenmez, toplanmaz veya üçüncü şahıslarla paylaşılmaz. Oyunu sıfırladığınızda veya tarayıcı geçmişinizi temizlediğinizde bu veriler silinir.</p>
+
+                <h3 style="color:#58a6ff;">2. Reklamlar ve Google AdSense Çerezleri</h3>
+                <p>Sitemizde, oyunun ücretsiz kalmasını sağlamak amacıyla Google AdSense reklam ağı kullanılmaktadır. Google, üçüncü taraf bir satıcı olarak sitemizde reklam yayınlamak için çerezleri (cookies) kullanır.</p>
+                <ul>
+                    <li>Üçüncü taraf satıcılar (Google dâhil), kullanıcıların sitenize veya diğer web sitelerine yaptıkları önceki ziyaretleri temel alan reklamlar yayınlamak için çerezleri kullanır.</li>
+                    <li>Google'ın reklam çerezlerini kullanması, Google ve iş ortaklarının kullanıcılara sitenize ve/veya İnternet'teki diğer sitelere yaptıkları ziyaretleri temel alan reklamlar sunmasına olanak tanır.</li>
+                    <li>Kullanıcılar, <a href="https://myadcenter.google.com/" target="_blank" style="color:#58a6ff;">Reklam Merkezi</a>'ni ziyaret ederek kişiselleştirilmiş reklamcılığı devre dışı bırakabilirler.</li>
+                </ul>
+
+                <h3 style="color:#58a6ff;">3. Dış Bağlantılar</h3>
+                <p>Sitemiz, başka sitelere bağlantılar (linkler) içerebilir. Sitemiz üzerinden ulaştığınız diğer web sitelerinin gizlilik uygulamalarından veya içeriklerinden sorumlu değiliz.</p>
+                
+                <h3 style="color:#58a6ff;">4. Kullanım Koşulları</h3>
+                <p>Sitemizi kullanarak ve oyunu oynayarak, bu gizlilik politikasındaki şartları ve Google'ın reklam hizmetleri için çerez kullanımını kabul etmiş sayılırsınız.</p>
             </div>
         </div>
     </div>
 
     <script>
+        // YENİ: MODAL AÇMA VE KAPATMA FONKSİYONLARI
+        function modalAc(modalId) {
+            document.getElementById(modalId).style.display = "flex";
+        }
+        function modalKapat(modalId) {
+            document.getElementById(modalId).style.display = "none";
+        }
+
         let hucre = 0; let seviye = 1; let sonrakiSeviyeMaliyeti = 10;
         let otomatikUretimMiktari = 0; let tiklamaGucu = 1; let tiklamaGucuMaliyeti = 50; 
         let uretimCarpani = 1.0; let mutasyonMaliyeti = 200;
@@ -380,6 +490,9 @@
         let prestijCarpani = 1; let sonGirisZamani = Date.now();
         let kutleCekimAgiAktif = false;
         const kutleCekimMaliyeti = 1000000000; 
+
+        let oksijen = 0;
+        let oksijenAcildi = false;
 
         let sesAcik = false; let audioCtx; const uzayMelodisi = [220, 261.63, 293.66, 329.63, 392.00, 329.63, 293.66, 261.63]; let melodiIndex = 0; let muzikDongusu;
 
@@ -400,7 +513,8 @@
             { isim: "🌑 Ay Üssü", maliyet: 15000, isiKalkanMaliyeti: 17000, meteorKalkanMaliyeti: 25000, aciklama: "Tıklama gücünü anında x5'e katlar.", satinAlindi: false, isiKalkanSatinAlindi: false, meteorKalkanSatinAlindi: false, hasarBitisZamani: 0 }, 
             { isim: "🔴 Kızıl Gezegen (Mars)", maliyet: 500000, isiKalkanMaliyeti: 700000, meteorKalkanMaliyeti: 1200000, aciklama: "Altın Hücre çok daha sık ortaya çıkar.", satinAlindi: false, isiKalkanSatinAlindi: false, meteorKalkanSatinAlindi: false, hasarBitisZamani: 0 }, 
             { isim: "🪐 Jüpiter Fırtınası", maliyet: 10000000, isiKalkanMaliyeti: 17000000, meteorKalkanMaliyeti: 25000000, aciklama: "Tüm otomatik üretimi kalıcı olarak x3'e katlar.", satinAlindi: false, isiKalkanSatinAlindi: false, meteorKalkanSatinAlindi: false, hasarBitisZamani: 0 }, 
-            { isim: "🪐 Satürn Halkaları", maliyet: 250000000, isiKalkanMaliyeti: 270000000, meteorKalkanMaliyeti: 350000000, aciklama: "Seviye atlama maliyetlerini ucuzlatır (Oyun hızlanır).", satinAlindi: false, isiKalkanSatinAlindi: false, meteorKalkanSatinAlindi: false, hasarBitisZamani: 0 } 
+            { isim: "🪐 Satürn Halkaları", maliyet: 250000000, isiKalkanMaliyeti: 270000000, meteorKalkanMaliyeti: 350000000, aciklama: "Seviye atlama maliyetlerini ucuzlatır (Oyun hızlanır).", satinAlindi: false, isiKalkanSatinAlindi: false, meteorKalkanSatinAlindi: false, hasarBitisZamani: 0 },
+            { isim: "🌍 Dünya Gezegeni", maliyet: 300000000, isiKalkanMaliyeti: 320000000, meteorKalkanMaliyeti: 400000000, aciklama: "Oksijen üretimini kalıcı olarak x2'ye katlar.", satinAlindi: false, isiKalkanSatinAlindi: false, meteorKalkanSatinAlindi: false, hasarBitisZamani: 0 }
         ];
 
         function gunesEtkisiniHesapla() {
@@ -411,9 +525,19 @@
                 if (gezegenler[2].satinAlindi && !gezegenler[2].isiKalkanSatinAlindi) somuru += 0.8;
                 if (gezegenler[3].satinAlindi && !gezegenler[3].isiKalkanSatinAlindi) somuru += 1.6;
                 if (gezegenler[4].satinAlindi && !gezegenler[4].isiKalkanSatinAlindi) somuru += 3.2;
+                if (gezegenler[5].satinAlindi && !gezegenler[5].isiKalkanSatinAlindi) somuru += 6.4;
             }
             return parseFloat(somuru.toFixed(1));
         }
+
+        setInterval(function() {
+            if (oksijenAcildi) {
+                let dunyaHasarli = gezegenler[5].hasarBitisZamani > Date.now();
+                let oksijenEkle = gezegenler[5].satinAlindi ? (dunyaHasarli ? 1 : 2) : 1;
+                oksijen += oksijenEkle;
+                ekraniGuncelle();
+            }
+        }, 15000);
 
         function ekraniGuncelle() {
             let suAn = Date.now();
@@ -468,8 +592,51 @@
             document.getElementById("btn-tiklama").disabled = (hucre < tiklamaGucuMaliyeti);
             document.getElementById("btn-mutasyon").disabled = (hucre < mutasyonMaliyeti);
 
-            if (seviye >= 50 || prestijCarpani > 1) document.getElementById("btn-prestij").style.display = "flex"; else document.getElementById("btn-prestij").style.display = "none";
-            if (prestijCarpani > 1) { document.getElementById("prestij-metni").style.display = "block"; document.getElementById("guncel-prestij").innerText = prestijCarpani; }
+            if (seviye >= 50) document.getElementById("btn-prestij").style.display = "flex"; else document.getElementById("btn-prestij").style.display = "none";
+            
+            if (prestijCarpani > 1) { 
+                document.getElementById("prestij-metni").style.display = "block"; 
+                document.getElementById("guncel-prestij").innerText = prestijCarpani; 
+            } else {
+                document.getElementById("prestij-metni").style.display = "none";
+            }
+
+            if (!oksijenAcildi && (seviye >= 50 || prestijCarpani > 1)) {
+                oksijenAcildi = true;
+            }
+            if (oksijenAcildi) {
+                document.getElementById("oksijen-metni").style.display = "block";
+                document.getElementById("oksijen-paneli").style.display = "block";
+                document.getElementById("guncel-oksijen").innerText = Math.floor(oksijen);
+            } else {
+                document.getElementById("oksijen-metni").style.display = "none";
+                document.getElementById("oksijen-paneli").style.display = "none";
+            }
+        }
+
+        function oksijenBozdur() {
+            if (oksijen >= 1) {
+                oksijen--;
+                hucre += 1000;
+                anlikSesOynat("ses-avantaj");
+                yuzenYaziOlustur(window.innerWidth / 2, window.innerHeight / 2, "+1,000 (Oksijen!)", "#06b6d4");
+                ekraniGuncelle();
+            } else {
+                alert("Yeterli oksijenin yok! Oyun açık kaldığı sürece her 15 saniyede Oksijen birikir.");
+            }
+        }
+
+        function tumOksijeniBozdur() {
+            if (oksijen >= 1) {
+                let kazanilan = Math.floor(oksijen) * 1000;
+                oksijen -= Math.floor(oksijen);
+                hucre += kazanilan;
+                anlikSesOynat("ses-avantaj");
+                yuzenYaziOlustur(window.innerWidth / 2, window.innerHeight / 2, "+" + kazanilan.toLocaleString() + " (Oksijen!)", "#06b6d4");
+                ekraniGuncelle();
+            } else {
+                alert("Yeterli oksijenin yok! Oyun açık kaldığı sürece her 15 saniyede Oksijen birikir.");
+            }
         }
 
         function kutleCekimAgiKur() { if (hucre >= kutleCekimMaliyeti && !kutleCekimAgiAktif) { hucre -= kutleCekimMaliyeti; kutleCekimAgiAktif = true; anlikSesOynat("ses-avantaj"); ekraniGuncelle(); baslatHareketDongusu(); } }
@@ -479,6 +646,11 @@
             let suAn = Date.now();
             
             gezegenler.forEach((g, index) => {
+                if (index === 5 && !oksijenAcildi) {
+                    document.getElementById("yorunge-" + index).style.display = "none";
+                    return;
+                }
+
                 let durumClass = g.satinAlindi ? "gezegen-satin-alindi" : "";
                 let disabled = (hucre < g.maliyet || g.satinAlindi) ? "disabled" : "";
                 let etiketMetni = g.satinAlindi ? "Keşfedildi 🚩" : `${g.maliyet.toLocaleString()} Hücre`;
@@ -550,7 +722,14 @@
 
         setInterval(gezegenArayuzunuGuncelle, 1000);
 
-        function gezegenAl(index) { let secilenGezegen = gezegenler[index]; if (hucre >= secilenGezegen.maliyet && !secilenGezegen.satinAlindi) { hucre -= secilenGezegen.maliyet; secilenGezegen.satinAlindi = true; anlikSesOynat("ses-avantaj"); ekraniGuncelle(); gezegenArayuzunuGuncelle(); } }
+        function gezegenAl(index) { 
+            if (index === 5 && !oksijenAcildi) return;
+            
+            let secilenGezegen = gezegenler[index]; 
+            if (hucre >= secilenGezegen.maliyet && !secilenGezegen.satinAlindi) { 
+                hucre -= secilenGezegen.maliyet; secilenGezegen.satinAlindi = true; anlikSesOynat("ses-avantaj"); ekraniGuncelle(); gezegenArayuzunuGuncelle(); 
+            } 
+        }
         
         function isiKalkaniAl(index) { 
             let secilenGezegen = gezegenler[index]; 
@@ -669,7 +848,7 @@
                         meteor.remove();
                         
                         let isabetSansi = 0.4; 
-                        let alinanGezegenler = gezegenler.filter(g => g.satinAlindi);
+                        let alinanGezegenler = gezegenler.filter((g, i) => g.satinAlindi && (i !== 5 || oksijenAcildi));
                         
                         if (Math.random() < isabetSansi && alinanGezegenler.length > 0) {
                             let hedefIndexGezegen = Math.floor(Math.random() * alinanGezegenler.length);
@@ -715,7 +894,11 @@
         function butonuSifirla(btn) { reklamIzleniyor = false; btn.disabled = false; btn.innerHTML = `<span>📺 Reklam İzle (Anında Büyük Ödül)</span><span style="background:rgba(0,0,0,0.5); padding:4px 8px; border-radius:5px;">Ücretsiz</span>`; }
 
         function buyukPatlamaYap() {
-            if(confirm("Tüm hücrelerin, gezegenlerin, KÜTLE ÇEKİM AĞIN ve geliştirmelerin sıfırlanacak! Kalıcı olarak x5 Üretim Çarpanı kazanacaksın. Emin misin?")) {
+            if (seviye < 50) {
+                alert("Büyük Patlama yapabilmek için en az 50. Seviyeye ulaşmalısın!");
+                return;
+            }
+            if(confirm("Tüm hücrelerin, gezegenlerin, KÜTLE ÇEKİM AĞIN ve geliştirmelerin sıfırlanacak! Kalıcı olarak x5 Üretim Çarpanı kazanacaksın. Oksijenlerin silinmeyecek. Emin misin?")) {
                 prestijCarpani += 5; hucre = 0; seviye = 1; sonrakiSeviyeMaliyeti = 10; otomatikUretimMiktari = 0; tiklamaGucu = 1; tiklamaGucuMaliyeti = 50; uretimCarpani = 1.0; mutasyonMaliyeti = 200; entropiSeviyesi = 0; kutleCekimAgiAktif = false;
                 document.getElementById("kozmik-ag").style.display = "none"; document.getElementById("sinerji-metni").style.display = "none"; let btnKutle = document.getElementById("btn-kutlecekim"); btnKutle.innerHTML = `<span>🌌 Kütle Çekim Ağını Kur</span><span style="background:rgba(0,0,0,0.5); padding:4px 8px; border-radius:5px;">1 Milyar Hücre</span>`; btnKutle.style.background = "";
                 asamalar.forEach(a => a.acildimi = false); document.getElementById("asamalar-alani").innerHTML = ""; gezegenler.forEach(g => { g.satinAlindi = false; g.isiKalkanSatinAlindi = false; g.meteorKalkanSatinAlindi = false; g.hasarBitisZamani = 0; }); document.querySelectorAll('.serbest-canli').forEach(e => e.remove()); serbestCanlilarListesi = [];
@@ -729,15 +912,15 @@
             let kaydedilenIsiKalkanlari = gezegenler.map(g => g.isiKalkanSatinAlindi);
             let kaydedilenMeteorKalkanlari = gezegenler.map(g => g.meteorKalkanSatinAlindi);
             let kaydedilenHasarlar = gezegenler.map(g => g.hasarBitisZamani);
-            const veriler = { hucre, seviye, sonrakiSeviyeMaliyeti, otomatikUretimMiktari, tiklamaGucu, tiklamaGucuMaliyeti, uretimCarpani, mutasyonMaliyeti, entropiSeviyesi, prestijCarpani, sonGirisZamani, kaydedilenGezegenler, kaydedilenIsiKalkanlari, kaydedilenMeteorKalkanlari, kaydedilenHasarlar, kutleCekimAgiAktif };
+            const veriler = { hucre, seviye, sonrakiSeviyeMaliyeti, otomatikUretimMiktari, tiklamaGucu, tiklamaGucuMaliyeti, uretimCarpani, mutasyonMaliyeti, entropiSeviyesi, prestijCarpani, sonGirisZamani, kaydedilenGezegenler, kaydedilenIsiKalkanlari, kaydedilenMeteorKalkanlari, kaydedilenHasarlar, kutleCekimAgiAktif, oksijen, oksijenAcildi };
             localStorage.setItem("oyunKaydi", JSON.stringify(veriler));
         }
 
         function kaydetVeBilgiVer() { kaydet(); anlikSesOynat("ses-avantaj"); alert("Oyun Başarıyla Kaydedildi!"); }
         
         function oyunuSifirla() {
-            if(confirm("DİKKAT! Tüm emeğin, gezegenlerin ve Büyük Patlama (Prestij) çarpanı dahil HER ŞEY tamamen silinecek. Oyuna sıfırdan başlamak istediğine emin misin?")) {
-                localStorage.removeItem("oyunKaydi"); hucre = 0; seviye = 1; sonrakiSeviyeMaliyeti = 10; otomatikUretimMiktari = 0; tiklamaGucu = 1; tiklamaGucuMaliyeti = 50; uretimCarpani = 1.0; mutasyonMaliyeti = 200; entropiSeviyesi = 0; prestijCarpani = 1; kutleCekimAgiAktif = false;
+            if(confirm("DİKKAT! Tüm emeğin, gezegenlerin, Büyük Patlama çarpanı ve Oksijen dahil HER ŞEY tamamen silinecek. Oyuna sıfırdan başlamak istediğine emin misin?")) {
+                localStorage.removeItem("oyunKaydi"); hucre = 0; seviye = 1; sonrakiSeviyeMaliyeti = 10; otomatikUretimMiktari = 0; tiklamaGucu = 1; tiklamaGucuMaliyeti = 50; uretimCarpani = 1.0; mutasyonMaliyeti = 200; entropiSeviyesi = 0; prestijCarpani = 1; kutleCekimAgiAktif = false; oksijen = 0; oksijenAcildi = false;
                 gezegenler.forEach(g => { g.satinAlindi = false; g.isiKalkanSatinAlindi = false; g.meteorKalkanSatinAlindi = false; g.hasarBitisZamani = 0; }); asamalar.forEach(a => a.acildimi = false);
                 document.getElementById("asamalar-alani").innerHTML = ""; document.getElementById("kozmik-ag").style.display = "none"; document.getElementById("sinerji-metni").style.display = "none";
                 let btnKutle = document.getElementById("btn-kutlecekim"); btnKutle.innerHTML = `<span>🌌 Kütle Çekim Ağını Kur</span><span style="background:rgba(0,0,0,0.5); padding:4px 8px; border-radius:5px;">1 Milyar Hücre</span>`; btnKutle.style.background = "";
@@ -750,6 +933,10 @@
             let kayit = localStorage.getItem("oyunKaydi");
             if(kayit) {
                 let veriler = JSON.parse(kayit); hucre = veriler.hucre || 0; seviye = veriler.seviye || 1; sonrakiSeviyeMaliyeti = veriler.sonrakiSeviyeMaliyeti || 10; otomatikUretimMiktari = veriler.otomatikUretimMiktari || 0; tiklamaGucu = veriler.tiklamaGucu || 1; tiklamaGucuMaliyeti = veriler.tiklamaGucuMaliyeti || 50; uretimCarpani = veriler.uretimCarpani || 1.0; mutasyonMaliyeti = veriler.mutasyonMaliyeti || 200; entropiSeviyesi = veriler.entropiSeviyesi || 0; prestijCarpani = veriler.prestijCarpani || 1; kutleCekimAgiAktif = veriler.kutleCekimAgiAktif || false;
+                
+                oksijen = veriler.oksijen || 0;
+                oksijenAcildi = veriler.oksijenAcildi || false;
+
                 if(veriler.kaydedilenGezegenler) { veriler.kaydedilenGezegenler.forEach((durum, index) => { if(gezegenler[index]) gezegenler[index].satinAlindi = durum; }); }
                 
                 if(veriler.kaydedilenKalkanlar && !veriler.kaydedilenIsiKalkanlari) { veriler.kaydedilenKalkanlar.forEach((durum, index) => { if(gezegenler[index]) gezegenler[index].isiKalkanSatinAlindi = durum; }); }
@@ -776,9 +963,6 @@
                 }
             }
         }
-
-        function ogreticiyiAc() { document.getElementById("ogretici-modal").style.display = "flex"; }
-        function ogreticiyiKapat() { document.getElementById("ogretici-modal").style.display = "none"; }
 
         let karadelikAktif = false; let karadelikBaslangicCani = 40; let karadelikCani = 0; let emilenHucre = 0; let karadelikHareketSayaci = 0; 
 
