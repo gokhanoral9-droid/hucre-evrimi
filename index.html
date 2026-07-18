@@ -130,25 +130,36 @@
         }
         #karadelik.aktif { opacity: 1; visibility: visible; }
 
+        /* ANDROID/MOBİL İÇİN KASMAYAN, MERKEZE KADAR ULAŞAN OPTİMİZE GÜNEŞ DALGASI */
         #gunes {
-            display: none; position: absolute; top: 5%; right: 5%; width: 180px; height: 180px; margin: 0;
+            display: none; position: absolute; top: 5%; right: 5%; width: 140px; height: 140px; margin: 0;
             background: radial-gradient(circle at 30% 30%, #ffffff 0%, #ffe600 20%, #ff8800 60%, #cc2200 100%);
             border-radius: 50%;
-            box-shadow: inset -20px -20px 40px rgba(200, 0, 0, 0.8), inset 10px 10px 30px rgba(255, 255, 255, 0.8), 0 0 80px 20px rgba(255, 136, 0, 0.9);
+            box-shadow: 0 0 50px 10px rgba(255, 136, 0, 0.7);
             z-index: 5; pointer-events: none; opacity: 0; 
-            animation: gunesNabiz 4s infinite alternate ease-in-out; transition: opacity 2s ease-in-out;
+            animation: mobilGunesNabiz 4s infinite alternate ease-in-out; 
+            transition: opacity 2s ease-in-out;
+            will-change: transform; 
         }
         #gunes::before, #gunes::after {
             content: ""; position: absolute; top: 50%; left: 50%; width: 100%; height: 100%; border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 150, 0, 0.15) 0%, transparent 70%); border: 2px solid rgba(255, 166, 0, 0.4);
-            transform: translate(-50%, -50%) scale(1); animation: gunesDalgasi 16s infinite ease-out; pointer-events: none; z-index: -1;
+            border: 2px solid rgba(255, 166, 0, 0.4);
+            background: rgba(255, 150, 0, 0.1);
+            transform: translate(-50%, -50%) scale(1); 
+            animation: mobilGunesDalgasi 5s infinite ease-out; /* Süre uzatıldı, akıcı ilerlesin diye */
+            pointer-events: none; z-index: -1;
+            will-change: transform, opacity; /* GPU Hızlandırma - SIFIR KASMA */
         }
-        #gunes::after { animation-delay: 8s; }
-        @keyframes gunesDalgasi {
-            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; box-shadow: 0 0 40px 20px rgba(255, 150, 0, 0.6); }
-            100% { transform: translate(-50%, -50%) scale(30); opacity: 0; box-shadow: 0 0 0px 0px rgba(255, 100, 0, 0); }
+        #gunes::after { animation-delay: 2.5s; }
+        
+        @keyframes mobilGunesDalgasi {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(14); opacity: 0; } /* scale(14) ile tam ortaya kadar uzanır */
         }
-        @keyframes gunesNabiz { 0% { transform: scale(1) rotate(0deg); filter: drop-shadow(0 0 40px rgba(255, 94, 0, 0.8)); } 100% { transform: scale(1.15) rotate(5deg); filter: drop-shadow(0 0 100px rgba(255, 230, 0, 1)); } }
+        @keyframes mobilGunesNabiz { 
+            0% { transform: scale(1); } 
+            100% { transform: scale(1.1); } 
+        }
 
         .meteor-cisim { position: absolute; background: radial-gradient(circle at 30% 30%, #9ca3af 0%, #4b5563 50%, #1f2937 100%); border-radius: 50%; box-shadow: inset -4px -4px 8px rgba(0,0,0,0.9), inset 2px 2px 5px rgba(255,255,255,0.3), 0 0 15px 5px rgba(239, 68, 68, 0.6); pointer-events: none; z-index: 40; animation: meteorAtesi 0.5s infinite alternate; }
         @keyframes meteorAtesi { from { box-shadow: inset -4px -4px 8px rgba(0,0,0,0.9), inset 2px 2px 5px rgba(255,255,255,0.3), 0 0 10px 2px rgba(239, 68, 68, 0.5); } to { box-shadow: inset -4px -4px 8px rgba(0,0,0,0.9), inset 2px 2px 5px rgba(255,255,255,0.3), 0 0 25px 10px rgba(249, 115, 22, 0.9); } }
@@ -333,6 +344,18 @@
     </div>
 
     <script>
+        // --- GÜVENLİK VE KORUMA KODLARI ---
+        // Sağ tıklama menüsünü tamamen iptal eder
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        // Klavye Kısayollarını (F12, İncele, Kaynağı Görüntüle) Engeller
+        document.onkeydown = function(e) {
+            if (e.keyCode == 123) { return false; } // F12 Tuşunu kapatır
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 73) { return false; } // Ctrl+Shift+I (İncele) kapatır
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 74) { return false; } // Ctrl+Shift+J (Konsol) kapatır
+            if (e.ctrlKey && e.keyCode == 85) { return false; } // Ctrl+U (Kaynağı Görüntüle) kapatır
+        };
+
         function modalAc(modalId) { document.getElementById(modalId).style.display = "flex"; }
         function modalKapat(modalId) { document.getElementById(modalId).style.display = "none"; }
 
@@ -781,6 +804,17 @@
             document.getElementById("guncel-tiklama").innerText = formatla(gercekTiklama);
             
             document.getElementById("seviye-sayisi").innerText = seviye;
+            
+            // 50. Seviye Reklam Butonu Metin Güncellemesi
+            let reklamButonu = document.getElementById("btn-odullu-reklam");
+            if (!reklamIzleniyor) {
+                if (seviye >= 50) {
+                    reklamButonu.innerHTML = `<span>📺 Reklam İzle (Anında 5 Oksijen)</span><span style="background:rgba(0,0,0,0.5); padding:4px 8px; border-radius:5px;">Ücretsiz</span>`;
+                } else {
+                    reklamButonu.innerHTML = `<span>📺 Reklam İzle (Anında Büyük Ödül)</span><span style="background:rgba(0,0,0,0.5); padding:4px 8px; border-radius:5px;">Ücretsiz</span>`;
+                }
+            }
+            
             document.getElementById("seviye-maliyeti").innerText = formatla(sonrakiSeviyeMaliyeti);
             document.getElementById("maliyet-tiklama").innerText = formatla(tiklamaGucuMaliyeti) + " Hücre";
             document.getElementById("maliyet-mutasyon").innerText = formatla(mutasyonMaliyeti) + " Hücre";
@@ -885,6 +919,9 @@
         }
 
         document.getElementById("gizli-tiklama").addEventListener("mousedown", function(e) {
+            // Sadece Sol Tık (0) çalışsın, sağ tık (2) ve orta tık (1) engellensin
+            if (e.button !== 0) return; 
+
             centerCell.scale.set(0.9, 0.9, 0.9); setTimeout(() => centerCell.scale.set(1, 1, 1), 100);
             let suAn = Date.now();
             let ayHasarli = gezegenler[1].hasarBitisZamani > suAn; let ayCarpani = gezegenler[1].satinAlindi ? (ayHasarli ? 2.5 : 5) : 1;
@@ -1018,17 +1055,37 @@
 
         let reklamIzleniyor = false;
         function odulluReklamIzle() { if (reklamIzleniyor) return; let btn = document.getElementById("btn-odullu-reklam"); reklamIzleniyor = true; btn.disabled = true; btn.innerHTML = `<span>⏳ Reklam Yükleniyor...</span>`; try { setTimeout(() => { oduluVer(); }, 3000); } catch (hata) { butonuSifirla(btn); } }
-        function oduluVer() { 
-            let suAn = Date.now();
-            let jupHasarli = gezegenler[3].hasarBitisZamani > suAn; let jupiter = gezegenler[3].satinAlindi ? (jupHasarli ? 1.5 : 3) : 1; 
-            let sinerji = 1; if (kutleCekimAgiAktif) { let p = gezegenler.filter(g => g.satinAlindi).length; let tabanSinerji = (gezegenler[9] && gezegenler[9].satinAlindi && gezegenler[9].hasarBitisZamani <= suAn) ? 1.3 : 1.2; if(p > 0) sinerji = Math.pow(tabanSinerji, p); }
-            let venusCarpani = (gezegenler[7] && gezegenler[7].satinAlindi) ? (gezegenler[7].hasarBitisZamani > suAn ? 1 : 2) : 1;
-            let gunesSomurusu = gunesEtkisiniHesapla(); 
-            let nihaiUretimCarpani = Math.max(0, (uretimCarpani * prestijCarpani * jupiter * sinerji * venusCarpani) - gunesSomurusu); 
-            let saniyelikUretim = otomatikUretimMiktari * nihaiUretimCarpani; let odul = Math.floor(saniyelikUretim * 100); 
-            if (odul < 500) odul = 500; hucre += odul; ekraniGuncelle(); anlikSesOynat("ses-avantaj"); alert(`Tebrikler! Reklamı izlediğin için ${formatla(odul)} Hücre kazandın!`); butonuSifirla(document.getElementById("btn-odullu-reklam")); kaydet(); 
+        
+        function oduluVer() {
+            if (seviye >= 50) {
+                oksijen += 5;
+                ekraniGuncelle();
+                gezegenArayuzunuGuncelle();
+                anlikSesOynat("ses-avantaj");
+                alert(`Tebrikler! Reklamı izlediğin için 5 Oksijen kazandın!`);
+                butonuSifirla(document.getElementById("btn-odullu-reklam"));
+                kaydet();
+            } else {
+                let suAn = Date.now();
+                let jupHasarli = gezegenler[3].hasarBitisZamani > suAn; let jupiter = gezegenler[3].satinAlindi ? (jupHasarli ? 1.5 : 3) : 1;
+                let sinerji = 1; if (kutleCekimAgiAktif) { let p = gezegenler.filter(g => g.satinAlindi).length; let tabanSinerji = (gezegenler[9] && gezegenler[9].satinAlindi && gezegenler[9].hasarBitisZamani <= suAn) ? 1.3 : 1.2; if(p > 0) sinerji = Math.pow(tabanSinerji, p); }
+                let venusCarpani = (gezegenler[7] && gezegenler[7].satinAlindi) ? (gezegenler[7].hasarBitisZamani > suAn ? 1 : 2) : 1;
+                let gunesSomurusu = gunesEtkisiniHesapla();
+                let nihaiUretimCarpani = Math.max(0, (uretimCarpani * prestijCarpani * jupiter * sinerji * venusCarpani) - gunesSomurusu);
+                let saniyelikUretim = otomatikUretimMiktari * nihaiUretimCarpani; let odul = Math.floor(saniyelikUretim * 100);
+                if (odul < 500) odul = 500; hucre += odul; ekraniGuncelle(); anlikSesOynat("ses-avantaj"); alert(`Tebrikler! Reklamı izlediğin için ${formatla(odul)} Hücre kazandın!`); butonuSifirla(document.getElementById("btn-odullu-reklam")); kaydet();
+            }
         }
-        function butonuSifirla(btn) { reklamIzleniyor = false; btn.disabled = false; btn.innerHTML = `<span>📺 Reklam İzle (Anında Büyük Ödül)</span><span style="background:rgba(0,0,0,0.5); padding:4px 8px; border-radius:5px;">Ücretsiz</span>`; }
+        
+        function butonuSifirla(btn) {
+            reklamIzleniyor = false;
+            btn.disabled = false;
+            if (seviye >= 50) {
+                btn.innerHTML = `<span>📺 Reklam İzle (Anında 5 Oksijen)</span><span style="background:rgba(0,0,0,0.5); padding:4px 8px; border-radius:5px;">Ücretsiz</span>`;
+            } else {
+                btn.innerHTML = `<span>📺 Reklam İzle (Anında Büyük Ödül)</span><span style="background:rgba(0,0,0,0.5); padding:4px 8px; border-radius:5px;">Ücretsiz</span>`;
+            }
+        }
 
         function patlamaParcaciklariOlustur() {
             const pnl = document.getElementById("sol-panel"); const renkler = ["#f87171", "#fbbf24", "#38bdf8", "#ffffff", "#f97316", "#a16207"];
